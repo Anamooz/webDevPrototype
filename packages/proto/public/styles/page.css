@@ -1,0 +1,27 @@
+body {
+    background-color: #495670;
+}
+
+header {
+    text-align: center;
+    border-style: double;
+    background-color: white;
+}
+
+h2 {
+    text-align: center;
+    border-style: double;
+    background-color: white;
+}
+
+li {
+    color: white;
+    text-align: center;
+}
+
+a {
+    color: white;
+    text-align: center;
+}
+
+
