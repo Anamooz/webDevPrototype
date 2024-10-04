@@ -1,11 +1,16 @@
 header {
-    background-color: #4682B4;
-    color: #FFFFFF;
+    background-color: var(--color-cryo);
+    color: var(--color-text);
     text-align: center;
+    font-family: var(--font-family-display);
 }
 
 h3 {
-    color: #FFFFFF;
-    background-color: #092478;
+    color: var(--color-text);
+    background-color: var(--color-navy);
+}
+
+body {
+    font-family: var(--font-family-body);
 }
 

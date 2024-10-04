@@ -3,4 +3,14 @@
     --color-text: #FFFFFF;
     --font-family-body: Karma, "Lucida Bright", "Times New Roman", serif;
     --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
+
+    --color-geo: #dcac37;
+    --color-pyro: #a90e09;
+    --color-cryo: #4682B4;
+    --color-hydro: #0098ff;
+    --color-dendro: #608a00;
+    --color-anemo: #359697;
+    --color-electro: #945dc4;
+
+    --color-navy: #3853a3;
 }
