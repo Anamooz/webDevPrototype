@@ -1,27 +1,30 @@
 body {
-    background-color: #495670;
+    background-color: var(--color-background-page);
+    font-family: var(--font-family-body);
 }
 
 header {
     text-align: center;
     border-style: double;
-    background-color: white;
+    background-color: var(--color-text);
+    font-family: var(--font-family-display);
 }
 
 h2 {
     text-align: center;
     border-style: double;
-    background-color: white;
+    background-color: var(--color-text);
 }
 
 li {
-    color: white;
+    color: var(--color-text);
     text-align: center;
 }
 
 a {
-    color: white;
+    color: var(--color-text);
     text-align: center;
 }
+
 
 

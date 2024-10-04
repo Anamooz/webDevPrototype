@@ -1,6 +1,6 @@
 :root {
     --color-background-page: #495670;
-    --font-family-body: Nunito, serif; 
-    --font-family-display:
-
+    --color-text: #FFFFFF;
+    --font-family-body: Karma, "Lucida Bright", "Times New Roman", serif;
+    --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
 }
