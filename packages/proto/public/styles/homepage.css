@@ -19,6 +19,8 @@ h2 {
 li {
     color: var(--color-text);
     text-align: center;
+    aspect-ratio: 16/9;
+    background-size: cover;
 }
 
 a {
@@ -26,5 +28,9 @@ a {
     text-align: center;
 }
 
+.page {
+    display: flex;
+    flex-direction: column;
+}
 
 

@@ -2,9 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="/styles/homepage.css" />
-        <link rel="stylesheet" href="/styles/tokens.css" />
-        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -12,6 +9,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/styles/reset.css">
+        <link rel="stylesheet" href="/styles/homepage.css" />
+        <link rel="stylesheet" href="/styles/tokens.css" />
     </head>
 
     <body>
@@ -20,35 +21,31 @@
         <p>Best weapons, artifacts, and skills and materials you'll need</p>
     </header>
 
+    <main class="page">
     <section>
         <h2>Regions</h2>
         <ul>
-            <li>
+            <li style="background-image: url(images/regions/mondstadt.jpg);">
                 <a href="regions/mondstadt/mondstadt.html">Mondstadt</a>
-                <img src="images/regions/mondstadt.jpg" />
             </li>
-            <li>
+            <li style="background-image: url(images/regions/liyue.jpg);">
                 <a href="regions/liyue/liyue.html">Liyue</a>
-                <img src="images/regions/liyue.jpg" />
             </li>
-            <li>
+            <li style="background-image: url(images/regions/inazuma.jpg);">
                 <a href="regions/inazuma/inazuma.html">Inazuma</a>
-                <img src="images/regions/inazuma.jpg" />
             </li>
-            <li>
+            <li style="background-image: url(images/regions/sumeru.jpeg);">
                 <a href="regions/sumeru/sumeru.html">Sumeru</a>
-                <img src="images/regions/sumeru.jpeg" />
             </li>
-            <li>
+            <li style="background-image: url(images/regions/fontaine.jpg);">
                 <a href="regions/fontaine/fontaine.html">Fontaine</a>
-                <img src="images/regions/fontaine.jpg" />
             </li>
-            <li>
+            <li style="background-image: url(images/regions/natlan.jpg);">
                 <a href="regions/natlan/natlan.html">Natlan</a>
-                <img src="images/regions/natlan.jpg" />
             </li>
         </ul>
     </section>
+    </main>
     </body>
 
 </html>
