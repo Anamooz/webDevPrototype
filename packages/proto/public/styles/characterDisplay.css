@@ -1,0 +1,17 @@
+.gallery > li {
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 30px;
+}
+
+a {
+    text-align: center;
+    
+}
+
