@@ -11,7 +11,23 @@
 }
 
 a {
+    text-align: center;  
+}
+
+header {
     text-align: center;
-    
+    border-style: double;
+    background-color: var(--color-text);
+    font-family: var(--font-family-display);
+}
+
+h2 {
+    text-align: center;
+    border-style: double;
+    background-color: var(--color-text);
+}
+
+body {
+    font-family: var(--font-family-body);
 }
 
