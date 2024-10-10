@@ -3,14 +3,43 @@ header {
     color: var(--color-text);
     text-align: center;
     font-family: var(--font-family-display);
+    font-size: 20px;
+    padding: 13px;
+    margin-bottom: 5px;
 }
 
 h3 {
     color: var(--color-text);
     background-color: var(--color-navy);
+    padding: 13px;
+    padding-left: 30px;
+    margin: 5px;
 }
 
 body {
     font-family: var(--font-family-body);
+}
+
+li {
+    text-align: center;
+}
+
+.gallery > li {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gallery-li-row-gap);
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: var(--gallery-row-gap);
+}
+
+.gallery img {
+    height: var(--img-height);
+    width: var(--img-width);
+    object-fit: cover;
 }
 

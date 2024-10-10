@@ -13,4 +13,10 @@
     --color-electro: #945dc4;
 
     --color-navy: #3853a3;
+
+    --img-height: 256px;
+    --img-width: 256px;
+
+    --gallery-li-row-gap: 5px;
+    --gallery-row-gap: 30px;
 }
