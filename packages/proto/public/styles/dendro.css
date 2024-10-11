@@ -11,9 +11,11 @@ header {
 h3 {
     color: var(--color-text);
     background-color: var(--color-navy);
+    font-size: 20px;
     padding: 13px;
     padding-left: 30px;
     margin: 5px;
+    margin-bottom: 30px;
 }
 
 body {
@@ -22,6 +24,7 @@ body {
 
 li {
     text-align: center;
+    font-size: var(--font-size-tiny);
 }
 
 .gallery > li {
@@ -41,5 +44,10 @@ li {
     height: var(--img-height);
     width: var(--img-width);
     object-fit: cover;
+}
+
+img {
+    border: 2px ridge var(--color-dendro);
+    border-radius: 12px;
 }
 
