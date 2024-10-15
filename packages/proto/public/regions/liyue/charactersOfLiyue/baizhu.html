@@ -13,6 +13,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+          }
+        }
+    </script>
+    <script type="module">
+        import { define } from "@calpoly/mustang";
+        import { charactercharacterPageElement } from "/scripts/accommodation.js";
+      
+        define({
+          "character-Page": characterPageElement
+        });
+    </script>
 </head>
 
 <body>
