@@ -17,7 +17,26 @@
 
     --img-height: 256px;
     --img-width: 256px;
+    --img-border-radius: 12px;
+    --img-ridge: 2px;
 
     --gallery-li-row-gap: 5px;
     --gallery-row-gap: 30px;
+
+    --artifact-font-size: 25px;
+    --artifact-padding: 25px;
+
+    --artifact-substat-title-font-size: 22px;
+    --artifact-substat-padding-left: 30px;
+    --artifact-substat-margin-bottom: 30px;
+    --artifact-p-padding-left: 35px;
+
+    --character-header-font-size: 20px;
+    --character-header-padding: 10px;
+
+    --character-subheader-font-size: 20px;
+    --character-subheader-padding: 13px;
+    --character-subheader-padding-left: 30px;
+    --character-subheader-margin-top: 10px;
+    --character-subheader-margin-bottom: 30px;
 }
