@@ -21,7 +21,7 @@
     --img-ridge: 2px;
 
     --gallery-li-row-gap: 5px;
-    --gallery-row-gap: 30px;
+    --gallery-row-gap: 25px;
 
     --artifact-font-size: 25px;
     --artifact-padding: 25px;
@@ -29,6 +29,7 @@
     --artifact-substat-title-font-size: 22px;
     --artifact-substat-padding-left: 30px;
     --artifact-substat-margin-bottom: 30px;
+    --artifact-substat-margin-top: 30px;
     --artifact-p-padding-left: 35px;
 
     --character-header-font-size: 20px;

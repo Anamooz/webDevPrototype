@@ -60,6 +60,7 @@ img {
 h4 {
     padding-left: var(--artifact-substat-padding-left);
     margin-bottom: var(--artifact-substat-margin-bottom);
+    margin-top: var(--artifact-substat-margin-top);
     font-size: var(--artifact-substat-title-font-size);
 }
 
