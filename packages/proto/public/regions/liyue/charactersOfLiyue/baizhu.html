@@ -23,10 +23,10 @@
     </script>
     <script type="module">
         import { define } from "@calpoly/mustang";
-        import { charactercharacterPageElement } from "/scripts/accommodation.js";
+        import { characterWeaponElement } from "/scripts/characterWeapon.js";
       
         define({
-          "character-Page": characterPageElement
+          "character-weapon": characterWeaponElement
         });
     </script>
 </head>
@@ -54,7 +54,10 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <img src="/images/weapons/jadefallSplendor.png" class="center"/>
+
+        <character-weapon>
+        </character-weapon>
+
     <h3>Weapon Materials</h3>
     <ul class="gallery">
         <li> <img src="/images/materials/fungalSpores.webp"/> x15 Fungal Spores</li>
