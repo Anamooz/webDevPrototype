@@ -31,6 +31,7 @@ export class characterWeaponElement extends HTMLElement {
 
     img {
         margin: auto;
+        background-color: var(--img-background-color);
         }
 
     dl {

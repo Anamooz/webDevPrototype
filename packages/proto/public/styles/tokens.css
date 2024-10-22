@@ -1,6 +1,7 @@
 :root {
     --color-background-page: #495670;
     --color-text: #FFFFFF;
+    --color-text-body: black; 
     --font-family-body: Karma, "Lucida Bright", "Times New Roman", serif;
     --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
     --font-size-tiny: 17px;
@@ -15,10 +16,13 @@
 
     --color-navy: #3853a3;
 
+    --color-character-page-background: white; 
+
     --img-height: 256px;
     --img-width: 256px;
     --img-border-radius: 12px;
     --img-ridge: 2px;
+    --img-background-color: white;
 
     --gallery-li-row-gap: 5px;
     --gallery-row-gap: 25px;
@@ -40,4 +44,10 @@
     --character-subheader-padding-left: 30px;
     --character-subheader-margin-top: 10px;
     --character-subheader-margin-bottom: 30px;
+}
+
+body.dark-mode {
+    --color-character-page-background: rgb(0, 0, 0);
+    --color-text-body: rgba(255, 255, 255, 0.885);
+    --img-background-color: rgb(183, 173, 173);
 }

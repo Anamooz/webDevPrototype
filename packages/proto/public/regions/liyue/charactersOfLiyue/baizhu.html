@@ -28,13 +28,34 @@
         define({
           "character-weapon": characterWeaponElement
         });
+
     </script>
 </head>
 
 <body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Baizhu</h1>
     <p class="centerText">Support</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
 </header>
 
 <section>
@@ -102,5 +123,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
 </body>
 </html>
