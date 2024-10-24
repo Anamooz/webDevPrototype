@@ -9,7 +9,7 @@ export class characterWeaponElement extends HTMLElement {
      <img src="/images/weapons/dullBlade.webp"/>
     </slot>
 
-    <dl>
+    <dl>   
         <dt>Main Stat</dt>
         <dd><slot name="mainStat">---------</slot></dd>
         <dt>Base ATK</dt>

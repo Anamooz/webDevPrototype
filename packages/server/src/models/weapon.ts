@@ -1,9 +1,9 @@
 export interface Weapon {
     img: string;
-    name: string;
-    stat: number;
-    statType: weaponStatType;
+    stat: string;
+    statType: string;
+    baseAttack: number;
     description: string;
 }
 
-export type weaponStatType = "CRIT Rate" | "CRIT DMG" | "HP" | "DEF" | "Energy Recharge" | "Elemental Mastery";
+export type weaponStatType = | "CRIT Rate" | "CRIT DMG" | "HP" | "DEF" | "Energy Recharge" | "Elemental Mastery";
