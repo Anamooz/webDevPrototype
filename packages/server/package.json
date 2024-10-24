@@ -23,7 +23,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@calpoly/mustang": "^1.0.9",
+    "@calpoly/mustang": "^1.0.10",
     "express": "^4.21.1"
   }
 }

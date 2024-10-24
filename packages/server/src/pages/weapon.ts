@@ -23,10 +23,11 @@ export class weaponPage {
             statType,
             baseAttack,
             description } = this.data;
+            console.log("IMage:", img);
         return html` 
             <section>
             <slot name="weapon">
-            <img src=${img}/>
+            <img src="${img}"/>
             </slot>
 
             <dl>

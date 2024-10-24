@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import { weaponPage } from "pages/weapon";
-import { getWeapon } from "services/weapon-svc";
+import { weaponPage } from "./pages/weapon";
+import { getWeapon } from "./services/weapon-svc";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,7 +12,7 @@ app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
-app.get("weapon/:weaponId",
+app.get("/weapon/:weaponId",
   (req: Request, res: Response) => {
     const { weaponId} = req.params;
     const data = getWeapon(weaponId);
