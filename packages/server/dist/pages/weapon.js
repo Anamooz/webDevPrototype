@@ -52,10 +52,11 @@ class weaponPage {
       baseAttack,
       description
     } = this.data;
+    console.log("IMage:", img);
     return import_server.html` 
             <section>
             <slot name="weapon">
-            <img src=${img}/>
+            <img src="${img}"/>
             </slot>
 
             <dl>

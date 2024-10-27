@@ -22,8 +22,8 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
-var import_weapon = require("pages/weapon");
-var import_weapon_svc = require("services/weapon-svc");
+var import_weapon = require("./pages/weapon");
+var import_weapon_svc = require("./services/weapon-svc");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
@@ -32,7 +32,7 @@ app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
 app.get(
-  "weapon/:weaponId",
+  "/weapon/:weaponId",
   (req, res) => {
     const { weaponId } = req.params;
     const data = (0, import_weapon_svc.getWeapon)(weaponId);

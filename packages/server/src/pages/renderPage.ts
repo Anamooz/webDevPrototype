@@ -1,7 +1,4 @@
-import {
-    PageParts,
-    renderWithDefaults
-  } from "@calpoly/mustang/server";
+import { PageParts, renderWithDefaults } from "@calpoly/mustang/server";
   
   const defaults = {
     stylesheets: [
