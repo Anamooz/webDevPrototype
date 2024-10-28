@@ -1,4 +1,5 @@
 export interface Weapon {
+    weaponid: string;
     img: string;
     stat: string;
     statType: WeaponStatType;
@@ -12,4 +13,4 @@ export type WeaponStatType =
     | "HP" 
     | "DEF" 
     | "Energy Recharge" 
-    | "Elemental Mastery";
+    | "Elemental Mastery"; 

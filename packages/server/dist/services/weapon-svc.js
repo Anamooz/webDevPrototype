@@ -18,22 +18,28 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var weapon_svc_exports = {};
 __export(weapon_svc_exports, {
-  getWeapon: () => getWeapon
+  default: () => weapon_svc_default
 });
 module.exports = __toCommonJS(weapon_svc_exports);
-const weapons = {
-  jadefallSplendor: {
-    img: "/images/weapons/jadefallSplendor.png",
-    stat: "49.6 %",
-    statType: "HP",
-    baseAttack: 608,
-    description: "Primordial Jade Regalia, for 3s after using an Elemental Burst or creating a shield, the equipping character can gain the Primordial Jade Regalia effect: Restore 4.5 Energy every 2.5s, and gain 0.3% Elemental DMG Bonus for their corresponding Elemental Type for every 1,000 Max HP they possess, up to 12%. Primordial Jade Regalia will still take effect even if the equipping character is not on the field."
-  }
-};
-function getWeapon(_) {
-  return weapons["jadefallSplendor"];
+var import_mongoose = require("mongoose");
+const weaponSchema = new import_mongoose.Schema(
+  {
+    weaponid: { type: String, required: true },
+    img: { type: String, required: true },
+    stat: { type: String, required: true },
+    statType: { type: String, required: true },
+    baseAttack: { type: Number, required: true },
+    description: { type: String, required: true }
+  },
+  { collection: "weapon_collection" }
+);
+const weaponModel = (0, import_mongoose.model)("Weapon", weaponSchema);
+function index() {
+  return weaponModel.find();
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  getWeapon
-});
+function get(weaponid) {
+  return weaponModel.find({ weaponid }).then((list) => list[0]).catch((err) => {
+    throw `${weaponid} Not Found`;
+  });
+}
+var weapon_svc_default = { index, get };

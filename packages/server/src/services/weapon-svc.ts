@@ -1,15 +1,30 @@
-import { Weapon, WeaponStatType } from "../models";
+import { Schema, model } from "mongoose";
+import { Weapon } from "../models";
 
-const weapons = {
-    jadefallSplendor: {
-    img: "/images/weapons/jadefallSplendor.png",
-    stat: "49.6 %",
-    statType: "HP" as WeaponStatType,
-    baseAttack: 608,
-    description: "Primordial Jade Regalia, for 3s after using an Elemental Burst or creating a shield, the equipping character can gain the Primordial Jade Regalia effect: Restore 4.5 Energy every 2.5s, and gain 0.3% Elemental DMG Bonus for their corresponding Elemental Type for every 1,000 Max HP they possess, up to 12%. Primordial Jade Regalia will still take effect even if the equipping character is not on the field."
-    }
-};
+const weaponSchema = new Schema<Weapon>(
+    {
+    weaponid: { type: String, required: true },
+    img: { type: String, required: true },
+    stat: { type: String, required: true },
+    statType: { type: String, required: true },
+    baseAttack: {type: Number, required: true },
+    description: { type: String, required: true }
+    },
+    { collection: "weapon_collection"}
+);
 
-export function getWeapon(_: string) {
-    return weapons["jadefallSplendor"];
+const weaponModel = model<Weapon>("Weapon", weaponSchema);
+
+function index(): Promise<Weapon[]>{
+    return weaponModel.find();
 }
+
+function get(weaponid: String): Promise<Weapon> {
+    return weaponModel.find({ weaponid })
+      .then((list) => list[0])
+      .catch((err) => {
+        throw `${weaponid} Not Found`;
+      });
+  }
+  
+  export default { index, get };

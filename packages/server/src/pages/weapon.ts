@@ -12,7 +12,18 @@ export class weaponPage {
     render() {
         return renderPage({
           body: this.renderBody(),
-          // add more parts here later
+                stylesheets: ["/styles/destination.css"],
+            styles: [
+                css``
+            ],
+            scripts: [
+                `import { define } from "@calpoly/mustang";
+                import { characterWeaponElement } from "/scripts/characterWeapon.js";
+
+                define({
+                "character-weapon": characterWeaponElement
+                });`
+            ]
         });
     }
 
@@ -23,7 +34,6 @@ export class weaponPage {
             statType,
             baseAttack,
             description } = this.data;
-            console.log("IMage:", img);
         return html` 
             <section>
             <slot name="weapon">

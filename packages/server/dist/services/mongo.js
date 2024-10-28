@@ -26,62 +26,33 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var weapon_exports = {};
-__export(weapon_exports, {
-  weaponPage: () => weaponPage
+var mongo_exports = {};
+__export(mongo_exports, {
+  connect: () => connect
 });
-module.exports = __toCommonJS(weapon_exports);
-var import_server = require("@calpoly/mustang/server");
-var import_renderPage = __toESM(require("./renderPage"));
-class weaponPage {
-  data;
-  constructor(data) {
-    this.data = data;
+module.exports = __toCommonJS(mongo_exports);
+var import_mongoose = __toESM(require("mongoose"));
+var import_dotenv = __toESM(require("dotenv"));
+import_mongoose.default.set("debug", true);
+import_dotenv.default.config();
+function getMongoURI(dbname) {
+  let connection_string = `mongodb://localhost:27017/${dbname}`;
+  const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER } = process.env;
+  if (MONGO_USER && MONGO_PWD && MONGO_CLUSTER) {
+    console.log(
+      "Connecting to MongoDB at",
+      `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${dbname}`
+    );
+    connection_string = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/${dbname}?retryWrites=true&w=majority`;
+  } else {
+    console.log("Connecting to MongoDB at ", connection_string);
   }
-  render() {
-    return (0, import_renderPage.default)({
-      body: this.renderBody(),
-      stylesheets: ["/styles/destination.css"],
-      styles: [
-        import_server.css``
-      ],
-      scripts: [
-        `import { define } from "@calpoly/mustang";
-                import { characterWeaponElement } from "/scripts/characterWeapon.js";
-
-                define({
-                "character-weapon": characterWeaponElement
-                });`
-      ]
-    });
-  }
-  renderBody() {
-    const {
-      img,
-      stat,
-      statType,
-      baseAttack,
-      description
-    } = this.data;
-    return import_server.html` 
-            <section>
-            <slot name="weapon">
-            <img src="${img}"/>
-            </slot>
-
-            <dl>
-                <dt>Main Stat</dt>
-                <dd><slot name="mainStat">${statType} ${stat}</slot></dd>
-                <dt>Base ATK</dt>
-                <dd><slot name="baseATK">${baseAttack}</slot></dd>
-                <dt>Description</dt>
-                <dd><slot name="description">${description}</slot></dd>
-            </dl>
-            </section>
-        `;
-  }
+  return connection_string;
+}
+function connect(dbname) {
+  import_mongoose.default.connect(getMongoURI(dbname)).catch((error) => console.log(error));
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  weaponPage
+  connect
 });

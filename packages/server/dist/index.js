@@ -23,23 +23,22 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_weapon = require("./pages/weapon");
-var import_weapon_svc = require("./services/weapon-svc");
+var import_weapon_svc = __toESM(require("./services/weapon-svc"));
+var import_mongo = require("./services/mongo");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
+(0, import_mongo.connect)("test");
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
-app.get(
-  "/weapon/:weaponId",
-  (req, res) => {
-    const { weaponId } = req.params;
-    const data = (0, import_weapon_svc.getWeapon)(weaponId);
-    const page = new import_weapon.weaponPage(data);
-    res.set("Content-Type", "text/html").send(page.render());
-  }
-);
+app.get("/weapon/:weaponid", (req, res) => {
+  const { userid } = req.params;
+  import_weapon_svc.default.get(userid).then((data) => {
+    res.set("Content-Type", "text/html").send(import_weapon.weaponPage.render(data));
+  });
+});
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
