@@ -12,5 +12,6 @@ export type WeaponStatType =
     | "CRIT DMG" 
     | "HP" 
     | "DEF" 
+    | "ATK"
     | "Energy Recharge" 
     | "Elemental Mastery"; 

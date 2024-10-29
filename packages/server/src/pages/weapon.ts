@@ -2,7 +2,7 @@ import { css, html } from "@calpoly/mustang/server";
 import { Weapon } from "../models";
 import renderPage from "./renderPage";
 
-export class weaponPage {
+export class WeaponPage {
     data: Weapon;
 
     constructor(data: Weapon){
@@ -37,7 +37,7 @@ export class weaponPage {
         return html` 
             <section>
             <slot name="weapon">
-            <img src="${img}"/>
+            <img src="/images${img}"/>
             </slot>
 
             <dl>

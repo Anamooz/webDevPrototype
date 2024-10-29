@@ -29,14 +29,16 @@ const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
+app.use(import_express.default.json());
 (0, import_mongo.connect)("test");
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
 app.get("/weapon/:weaponid", (req, res) => {
-  const { userid } = req.params;
-  import_weapon_svc.default.get(userid).then((data) => {
-    res.set("Content-Type", "text/html").send(import_weapon.weaponPage.render(data));
+  const { weaponid } = req.params;
+  import_weapon_svc.default.get(weaponid).then((data) => {
+    const page = new import_weapon.WeaponPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
   });
 });
 app.listen(port, () => {

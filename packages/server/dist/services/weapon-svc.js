@@ -31,15 +31,16 @@ const weaponSchema = new import_mongoose.Schema(
     baseAttack: { type: Number, required: true },
     description: { type: String, required: true }
   },
-  { collection: "weapon_collection" }
+  { collection: "weapons_collection" }
 );
 const weaponModel = (0, import_mongoose.model)("Weapon", weaponSchema);
 function index() {
   return weaponModel.find();
 }
 function get(weaponid) {
-  return weaponModel.find({ weaponid }).then((list) => list[0]).catch((err) => {
-    throw `${weaponid} Not Found`;
+  return weaponModel.findById(weaponid).then((weapon) => {
+    if (!weapon) throw `${weaponid} Not Found`;
+    return weapon;
   });
 }
 var weapon_svc_default = { index, get };

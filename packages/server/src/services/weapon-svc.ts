@@ -10,7 +10,7 @@ const weaponSchema = new Schema<Weapon>(
     baseAttack: {type: Number, required: true },
     description: { type: String, required: true }
     },
-    { collection: "weapon_collection"}
+    { collection: "weapons_collection"}
 );
 
 const weaponModel = model<Weapon>("Weapon", weaponSchema);
@@ -20,10 +20,10 @@ function index(): Promise<Weapon[]>{
 }
 
 function get(weaponid: String): Promise<Weapon> {
-    return weaponModel.find({ weaponid })
-      .then((list) => list[0])
-      .catch((err) => {
-        throw `${weaponid} Not Found`;
+    return weaponModel.findById(weaponid)
+      .then((weapon) => { 
+        if ( ! weapon) throw `${weaponid} Not Found`;
+        return weapon
       });
   }
   

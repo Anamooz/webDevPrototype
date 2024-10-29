@@ -28,12 +28,12 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var weapon_exports = {};
 __export(weapon_exports, {
-  weaponPage: () => weaponPage
+  WeaponPage: () => WeaponPage
 });
 module.exports = __toCommonJS(weapon_exports);
 var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
-class weaponPage {
+class WeaponPage {
   data;
   constructor(data) {
     this.data = data;
@@ -66,7 +66,7 @@ class weaponPage {
     return import_server.html` 
             <section>
             <slot name="weapon">
-            <img src="${img}"/>
+            <img src="/images${img}"/>
             </slot>
 
             <dl>
@@ -83,5 +83,5 @@ class weaponPage {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  weaponPage
+  WeaponPage
 });

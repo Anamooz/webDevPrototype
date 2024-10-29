@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { weaponPage } from "./pages/weapon";
+import { WeaponPage } from "./pages/weapon";
 import Weapons from "./services/weapon-svc";
 import { connect } from "./services/mongo";
 
@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
 app.use(express.static(staticDir));
+app.use(express.json());
 connect("test");
 
 app.get("/hello", (req: Request, res: Response) => {
@@ -15,12 +16,15 @@ app.get("/hello", (req: Request, res: Response) => {
 });
 
 app.get("/weapon/:weaponid", (req: Request, res: Response) => {
-  const { userid } = req.params;
+  const { weaponid } = req.params;
 
-  Weapons.get(userid).then((data) => {
+
+  Weapons.get(weaponid).then((data) => {
+    const page = new WeaponPage(data);
+
     res
       .set("Content-Type", "text/html")
-      .send(weaponPage.render(data));
+      .send(page.render());
   });
 });
 
