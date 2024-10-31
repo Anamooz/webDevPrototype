@@ -34,4 +34,10 @@ const userModel = (0, import_mongoose.model)("User", userSchema);
 function index() {
   return userModel.find();
 }
-var user_svc_default = { Schema: userSchema };
+function get(userid) {
+  return userModel.findById(userid).then((user) => {
+    if (!user) throw `${userid} Not Found`;
+    return user;
+  });
+}
+var user_svc_default = { index, get, Schema: userSchema };

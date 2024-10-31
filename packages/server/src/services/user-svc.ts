@@ -16,4 +16,12 @@ function index(): Promise<User[]>{
     return userModel.find();
 }
 
-export default { Schema: userSchema };
+function get(userid: String): Promise<User> {
+    return userModel.findById(userid)
+        .then((user) => { 
+        if ( ! user) throw `${userid} Not Found`;
+        return user
+    });
+}
+  
+export default { index, get, Schema: userSchema };

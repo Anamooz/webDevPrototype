@@ -23,7 +23,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_weapon = require("./pages/weapon");
+var import_user = require("./pages/user");
 var import_weapon_svc = __toESM(require("./services/weapon-svc"));
+var import_user_svc = __toESM(require("./services/user-svc"));
 var import_mongo = require("./services/mongo");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
@@ -38,6 +40,13 @@ app.get("/weapon/:weaponid", (req, res) => {
   const { weaponid } = req.params;
   import_weapon_svc.default.get(weaponid).then((data) => {
     const page = new import_weapon.WeaponPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });
+});
+app.get("/user/:userid", (req, res) => {
+  const { userid } = req.params;
+  import_user_svc.default.get(userid).then((data) => {
+    const page = new import_user.UserPage(data);
     res.set("Content-Type", "text/html").send(page.render());
   });
 });

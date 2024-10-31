@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import { WeaponPage } from "./pages/weapon";
+import { UserPage } from "./pages/user";
 import Weapons from "./services/weapon-svc";
+import Users from "./services/user-svc";
 import { connect } from "./services/mongo";
 
 const app = express();
@@ -17,11 +19,18 @@ app.get("/hello", (req: Request, res: Response) => {
 
 app.get("/weapon/:weaponid", (req: Request, res: Response) => {
   const { weaponid } = req.params;
-
-
   Weapons.get(weaponid).then((data) => {
     const page = new WeaponPage(data);
+    res
+      .set("Content-Type", "text/html")
+      .send(page.render());
+  });
+});
 
+app.get("/user/:userid", (req: Request, res: Response) => {
+  const { userid } = req.params;
+  Users.get(userid).then((data) => {
+    const page = new UserPage(data);
     res
       .set("Content-Type", "text/html")
       .send(page.render());
