@@ -26,48 +26,15 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var user_exports = {};
-__export(user_exports, {
-  UserPage: () => UserPage
+var characters_exports = {};
+__export(characters_exports, {
+  default: () => characters_default
 });
-module.exports = __toCommonJS(user_exports);
-var import_server = require("@calpoly/mustang/server");
-var import_renderPage = __toESM(require("./renderPage"));
-class UserPage {
-  data;
-  constructor(data) {
-    this.data = data;
-  }
-  render() {
-    return (0, import_renderPage.default)({
-      body: this.renderBody(),
-      stylesheets: ["/styles/destination.css"],
-      styles: [
-        import_server.css``
-      ],
-      scripts: [
-        `import { define } from "@calpoly/mustang";
-                import { characterWeaponElement } from "/scripts/characterWeapon.js";
-
-                define({
-                "character-weapon": characterWeaponElement
-                });`
-      ]
-    });
-  }
-  renderBody() {
-    const { favoriteCharacters } = this.data;
-    console.log(favoriteCharacters[0].toObject());
-    return import_server.html` 
-            <section>
-            <p>
-                ${favoriteCharacters.map((char) => char.toObject().name).join(", ")}
-            </p>
-            </section>
-        `;
-  }
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  UserPage
+module.exports = __toCommonJS(characters_exports);
+var import_express = __toESM(require("express"));
+var import_character_svc = __toESM(require("../services/character-svc"));
+const router = import_express.default.Router();
+router.get("/", (_, res) => {
+  import_character_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
+var characters_default = router;

@@ -27,11 +27,13 @@ var import_user = require("./pages/user");
 var import_weapon_svc = __toESM(require("./services/weapon-svc"));
 var import_user_svc = __toESM(require("./services/user-svc"));
 var import_mongo = require("./services/mongo");
+var import_users = __toESM(require("./routes/users"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
+app.use("/api/users", import_users.default);
 (0, import_mongo.connect)("test");
 app.get("/hello", (req, res) => {
   res.send("Hello, World");

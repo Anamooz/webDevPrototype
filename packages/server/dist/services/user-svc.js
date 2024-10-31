@@ -35,9 +35,21 @@ function index() {
   return userModel.find();
 }
 function get(userid) {
-  return userModel.findById(userid).then((user) => {
+  return userModel.findById(userid).populate("favoriteCharacters").then((user) => {
     if (!user) throw `${userid} Not Found`;
     return user;
   });
 }
-var user_svc_default = { index, get, Schema: userSchema };
+function addFavoriteCharacter(userid, characterId) {
+  return userModel.findByIdAndUpdate(
+    userid,
+    { $push: { favoriteCharacters: characterId } },
+    // Push characterId into favoriteCharacters array
+    { new: true }
+    // Return the updated user document
+  ).populate("favoriteCharacters").then((user) => {
+    if (!user) throw `${userid} Not Found`;
+    return user;
+  });
+}
+var user_svc_default = { index, get, addFavoriteCharacter };

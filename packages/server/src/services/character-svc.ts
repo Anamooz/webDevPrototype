@@ -20,10 +20,18 @@ const characterSchema = new Schema<Character>(
     { collection: "characters_collection"}
 );
 
-const characterModel = model<Character>("Characters", characterSchema);
+const characterModel = model<Character>("Character", characterSchema);
 
 function index(): Promise<Character[]>{
     return characterModel.find();
+}
+
+function get(characterid: String): Promise<Character> {
+    return characterModel.findById(characterid)
+        .then((character) => { 
+        if ( ! character) throw `${characterid} Not Found`;
+        return character
+    });
 }
 
 export default { index };

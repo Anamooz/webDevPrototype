@@ -3,7 +3,9 @@ import { WeaponPage } from "./pages/weapon";
 import { UserPage } from "./pages/user";
 import Weapons from "./services/weapon-svc";
 import Users from "./services/user-svc";
+import Characters from "./services/character-svc";
 import { connect } from "./services/mongo";
+import users from "./routes/users";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,6 +13,9 @@ const staticDir = process.env.STATIC || "public";
 
 app.use(express.static(staticDir));
 app.use(express.json());
+
+app.use("/api/users", users);
+
 connect("test");
 
 app.get("/hello", (req: Request, res: Response) => {

@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import { User } from "models/user";
 import "../services/character-svc";
+import { populate } from "dotenv";
 
 const userSchema = new Schema<User>(
     {
@@ -18,10 +19,23 @@ function index(): Promise<User[]>{
 
 function get(userid: String): Promise<User> {
     return userModel.findById(userid)
+    .populate("favoriteCharacters")
         .then((user) => { 
         if ( ! user) throw `${userid} Not Found`;
         return user
     });
 }
+
+function addFavoriteCharacter(userid: string, characterId: string): Promise<User> {
+    return userModel.findByIdAndUpdate(
+        userid,
+        { $push: { favoriteCharacters: characterId } }, // Push characterId into favoriteCharacters array
+        { new: true } // Return the updated user document
+    ).populate("favoriteCharacters") // Optionally populate favorite characters if you want to return the updated list
+    .then((user) => {
+        if (!user) throw `${userid} Not Found`;
+        return user;
+    });
+}
   
-export default { index, get, Schema: userSchema };
+export default { index, get, addFavoriteCharacter };

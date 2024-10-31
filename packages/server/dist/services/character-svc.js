@@ -40,8 +40,14 @@ const characterSchema = new import_mongoose.Schema(
   },
   { collection: "characters_collection" }
 );
-const characterModel = (0, import_mongoose.model)("Characters", characterSchema);
+const characterModel = (0, import_mongoose.model)("Character", characterSchema);
 function index() {
   return characterModel.find();
+}
+function get(characterid) {
+  return characterModel.findById(characterid).then((character) => {
+    if (!character) throw `${characterid} Not Found`;
+    return character;
+  });
 }
 var character_svc_default = { index };

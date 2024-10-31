@@ -29,10 +29,11 @@ export class UserPage {
 
     renderBody() {
         const { favoriteCharacters } = this.data;
+        console.log(favoriteCharacters[0].toObject());
         return html` 
             <section>
             <p>
-                ${favoriteCharacters.map(char => char.name).join(', ')}
+                ${favoriteCharacters.map(char => char.toObject().name).join(', ')}
             </p>
             </section>
         `;
