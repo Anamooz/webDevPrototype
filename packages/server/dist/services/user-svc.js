@@ -52,4 +52,14 @@ function addFavoriteCharacter(userid, characterId) {
     return user;
   });
 }
-var user_svc_default = { index, get, addFavoriteCharacter };
+function deleteFavoriteCharacter(userid, characterId) {
+  return userModel.findByIdAndUpdate(
+    userid,
+    { $pull: { favoriteCharacters: characterId } },
+    { new: true }
+  ).populate("favoriteCharacters").then((user) => {
+    if (!user) throw `${userid} Not Found`;
+    return user;
+  });
+}
+var user_svc_default = { index, get, addFavoriteCharacter, deleteFavoriteCharacter };

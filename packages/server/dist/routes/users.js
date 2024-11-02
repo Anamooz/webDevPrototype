@@ -49,4 +49,8 @@ router.post("/:userid/favoriteCharacters/:characterid", (req, res) => {
   const { userid, characterid } = req.params;
   import_user_svc.default.addFavoriteCharacter(userid, characterid).then((user) => res.status(201).json(user)).catch((err) => res.status(500).send(err));
 });
+router.delete("/:userid/favoriteCharacters/:characterid", (req, res) => {
+  const { userid, characterid } = req.params;
+  import_user_svc.default.deleteFavoriteCharacter(userid, characterid).then((user) => res.status(200).json(user)).catch((err) => res.status(404).send(err));
+});
 var users_default = router;

@@ -37,5 +37,17 @@ function addFavoriteCharacter(userid: string, characterId: string): Promise<User
         return user;
     });
 }
+
+function deleteFavoriteCharacter(userid: string, characterId: string): Promise<User> {
+    return userModel.findByIdAndUpdate(
+        userid,
+        { $pull: { favoriteCharacters: characterId } },
+        { new: true }
+    ).populate("favoriteCharacters")
+    .then((user) => {
+        if (!user) throw `${userid} Not Found`;
+        return user;
+    });
+}
   
-export default { index, get, addFavoriteCharacter };
+export default { index, get, addFavoriteCharacter, deleteFavoriteCharacter };
