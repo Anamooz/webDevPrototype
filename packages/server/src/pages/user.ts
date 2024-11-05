@@ -18,10 +18,10 @@ export class UserPage {
             ],
             scripts: [
                 `import { define } from "@calpoly/mustang";
-                import { characterWeaponElement } from "/scripts/characterWeapon.js";
+                import { userElement } from "/scripts/user.js";
 
                 define({
-                "character-weapon": characterWeaponElement
+                "user-element": userElement
                 });`
             ]
         });
@@ -31,11 +31,11 @@ export class UserPage {
         const { favoriteCharacters } = this.data;
         console.log(favoriteCharacters[0].toObject());
         return html` 
-            <section>
+            <user-element src="/api/users/6722d1535aad4fc065f19ff0/favoriteCharacters">
             <p>
-                ${favoriteCharacters.map(char => char.toObject().name).join(', ')}
+               
             </p>
-            </section>
+            </user-element>
         `;
     }
 }
