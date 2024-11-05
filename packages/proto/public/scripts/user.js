@@ -59,6 +59,12 @@ export class userElement extends HTMLElement {
           );
     }
 
+    renderCharacter(key, json) {
+        return html`<character-element slot=${key}>
+        ${characterElement.renderSlots(json)}
+      </character-element>`
+    }
+
     renderSlots(json) {
       const entries = Object.entries(json);
       const toSlot = ([key, value]) => {
@@ -67,7 +73,7 @@ export class userElement extends HTMLElement {
           case "object":
             if (Array.isArray(value))
               return html`
-                ${value.map((s) => html`<fav-char slot=${key}>${s.name}</fav-char>`)}
+                ${value.map((s) => this.renderCharacter(key, s))}
               `;
           default:
             return html`<span slot="${key}">${value}</span>`;

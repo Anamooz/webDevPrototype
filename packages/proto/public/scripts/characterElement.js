@@ -50,7 +50,7 @@ export class characterElement extends HTMLElement {
           );
     }
 
-    renderSlots(json) {
+    static renderSlots(json) {
       const entries = Object.entries(json);
       const toSlot = ([key, value]) => {
       
@@ -62,8 +62,8 @@ export class characterElement extends HTMLElement {
         }
       }
     
-      const fragment = entries.map(toSlot);
-      this.replaceChildren(...fragment);
+      return entries.map(toSlot);
+      
     
   }
 }
