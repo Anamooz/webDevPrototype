@@ -1,30 +1,21 @@
 import { css, html, shadow } from "@calpoly/mustang";
-import { characterElement } from "./characterElement.js";
 import reset from "./styles/reset.css.js";
 
-export class userElement extends HTMLElement {
+export class characterElement extends HTMLElement {
   get src() {
     return this.getAttribute("src");
   }
 
     static template = html`<template>
-    <section>
-    <h1>Favorite Characters</h1>
-    <slot name="favoriteCharacters"></slot>
     <p><slot name="name"></slot></p>   
-    </section>
     </template>`;
 
     static styles = css`
 
-    h1 {
-        font-family: var(--font-family-display);
-        font-size: 40px;
-    }
-
     p {
       font-family: var(--font-family-body);
       font-size: 26px; 
+      color: black;
     }
     
   `;
@@ -32,8 +23,8 @@ export class userElement extends HTMLElement {
     constructor() {
         super();
         shadow(this)
-            .template(userElement.template)
-            .styles(reset.styles, userElement.styles);
+            .template(characterElement.template)
+            .styles(reset.styles, characterElement.styles);
     }
 
     connectedCallback() {
@@ -63,14 +54,11 @@ export class userElement extends HTMLElement {
       const entries = Object.entries(json);
       const toSlot = ([key, value]) => {
       
-        switch (typeof value) {
-          case "object":
-            if (Array.isArray(value))
-              return html`
-                ${value.map((s) => html`<fav-char slot=${key}>${s.name}</fav-char>`)}
-              `;
-          default:
-            return html`<span slot="${key}">${value}</span>`;
+        switch (key) {
+          case "name":
+            return html`
+              <span slot="name">${value}</span>
+            `;
         }
       }
     

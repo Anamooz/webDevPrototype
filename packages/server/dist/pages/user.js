@@ -56,13 +56,11 @@ class UserPage {
     });
   }
   renderBody() {
-    const { favoriteCharacters } = this.data;
+    const { favoriteCharacters, _id } = this.data;
     console.log(favoriteCharacters[0].toObject());
     return import_server.html` 
-            <user-element src="/api/users/6722d1535aad4fc065f19ff0/favoriteCharacters">
-            <p>
-               
-            </p>
+            <user-element src="/api/users/${_id}">
+
             </user-element>
         `;
   }
