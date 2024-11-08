@@ -7,7 +7,7 @@ export class characterElement extends HTMLElement {
   }
 
     static template = html`<template>
-    <p><slot name="name"></slot></p>   
+    <slot name="name"></slot> 
     </template>`;
 
     static styles = css`

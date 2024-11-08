@@ -8,11 +8,14 @@ export class userElement extends HTMLElement {
   }
 
     static template = html`<template>
-    <section>
+    
     <h1>Favorite Characters</h1>
-    <slot name="favoriteCharacters"></slot>
-    <p><slot name="name"></slot></p>   
-    </section>
+    <ul>
+      <li>
+      <slot name="favoriteCharacters"></slot>
+      </li>
+      <slot name="name"></slot>  
+    </ul>
     </template>`;
 
     static styles = css`
@@ -20,11 +23,15 @@ export class userElement extends HTMLElement {
     h1 {
         font-family: var(--font-family-display);
         font-size: 40px;
+        padding-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
-    p {
+    li {
       font-family: var(--font-family-body);
-      font-size: 26px; 
+      font-size: 22px; 
+      margin-left: 20px;
     }
     
   `;
