@@ -6,6 +6,8 @@ import Users from "./services/user-svc";
 import Characters from "./services/character-svc";
 import { connect } from "./services/mongo";
 import users from "./routes/users";
+import auth, { authenticateUser } from "./routes/auth";
+import { LoginPage } from "./pages/auth";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,12 +16,18 @@ const staticDir = process.env.STATIC || "public";
 app.use(express.static(staticDir));
 app.use(express.json());
 
-app.use("/api/users", users);
+app.use("/auth", auth);
+app.use("/api/users", authenticateUser, users);
 
 connect("test");
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
+});
+
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
 });
 
 app.get("/weapon/:weaponid", (req: Request, res: Response) => {

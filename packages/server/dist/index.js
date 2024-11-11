@@ -28,15 +28,22 @@ var import_weapon_svc = __toESM(require("./services/weapon-svc"));
 var import_user_svc = __toESM(require("./services/user-svc"));
 var import_mongo = require("./services/mongo");
 var import_users = __toESM(require("./routes/users"));
+var import_auth = __toESM(require("./routes/auth"));
+var import_auth2 = require("./pages/auth");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/api/users", import_users.default);
+app.use("/auth", import_auth.default);
+app.use("/api/users", import_auth.authenticateUser, import_users.default);
 (0, import_mongo.connect)("test");
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
+});
+app.get("/login", (req, res) => {
+  const page = new import_auth2.LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
 });
 app.get("/weapon/:weaponid", (req, res) => {
   const { weaponid } = req.params;
