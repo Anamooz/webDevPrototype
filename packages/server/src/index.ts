@@ -8,6 +8,7 @@ import { connect } from "./services/mongo";
 import users from "./routes/users";
 import auth, { authenticateUser } from "./routes/auth";
 import { LoginPage } from "./pages/auth";
+import { RegistrationPage } from "./pages/auth";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,6 +28,11 @@ app.get("/hello", (req: Request, res: Response) => {
 
 app.get("/login", (req: Request, res: Response) => {
   const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
+
+app.get("/register", (req: Request, res: Response) => {
+  const page = new RegistrationPage();
   res.set("Content-Type", "text/html").send(page.render());
 });
 
