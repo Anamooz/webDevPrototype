@@ -43,8 +43,15 @@ export class userElement extends HTMLElement {
             .styles(reset.styles, userElement.styles);
     }
 
+    _authObserver = new Observer(this, "blazing:auth");
+
     connectedCallback() {
-        if (this.src) this.hydrate(this.src);
+      this._authObserver.observe(({ user }) => {
+        console.log("Authenticated user:", user);
+        this._user = user;
+        if (this.src && this.mode !== "new")
+          this.hydrate(this.src);
+      });
     }
 
     static observedAttributes = ["src"];
@@ -54,16 +61,28 @@ export class userElement extends HTMLElement {
         this.hydrate(newValue);
     }
 
+    get authorization() {
+      console.log("Authorization for user, ", this._user);
+      if (this._user && this._user.authenticated)
+        return {
+          Authorization: `Bearer ${this._user.token}`
+        };
+      else return {};
+    }
+
     hydrate(url) {
-        fetch(url)
-          .then((res) => {
-            if (res.status !== 200) throw `Status: ${res.status}`;
-            return res.json();
-          })
-          .then((json) => this.renderSlots(json))
-          .catch((error) =>
-            console.log(`Failed to render data ${url}:`, error)
-          );
+      fetch(url, { headers: this.authorization })
+        .then((res) => {
+          if (res.status !== 200) throw `Status: ${res.status}`;
+          return res.json();
+        })
+        .then((json) => {
+          this.renderSlots(json);
+          this.form.init = json;
+        })
+        .catch((error) => {
+          console.log(`Failed to render data ${url}:`, error);
+        });
     }
 
     renderCharacter(key, json) {

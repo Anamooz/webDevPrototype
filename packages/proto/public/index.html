@@ -23,19 +23,21 @@
         </script>
           <script type="module">
             import { define, Auth } from "@calpoly/mustang";
+            import { HeaderElement } from "/scripts/header.js";
       
             define({
-              "mu-auth": Auth.Provider
+                "genshin-header": HeaderElement,
+                "mu-auth": Auth.Provider
             });
+            HeaderElement.initializeOnce();
         </script>
     </head>
 
     <body>
     <mu-auth provides="test:auth">
-        <header>
-            <h1>Best Genshin Character Builds</h1>
-            <p>Best weapons, artifacts, and skills and materials you'll need</p>
-        </header>
+        <genshin-header>
+            
+        </genshin-header>
 
         <main class="page">
         <section>
