@@ -13,39 +13,56 @@
         <link rel="stylesheet" href="/styles/reset.css">
         <link rel="stylesheet" href="/styles/homepage.css" />
         <link rel="stylesheet" href="/styles/tokens.css" />
+
+        <script type="importmap">
+            {
+              "imports": {
+                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+              }
+            }
+        </script>
+          <script type="module">
+            import { define, Auth } from "@calpoly/mustang";
+      
+            define({
+              "mu-auth": Auth.Provider
+            });
+        </script>
     </head>
 
     <body>
-    <header>
-        <h1>Best Genshin Character Builds</h1>
-        <p>Best weapons, artifacts, and skills and materials you'll need</p>
-    </header>
+    <mu-auth provides="test:auth">
+        <header>
+            <h1>Best Genshin Character Builds</h1>
+            <p>Best weapons, artifacts, and skills and materials you'll need</p>
+        </header>
 
-    <main class="page">
-    <section>
-        <h2>Regions</h2>
-        <ul>
-            <li style="background-image: url(images/regions/mondstadt2.webp);">
-                <a href="regions/mondstadt/mondstadt.html">Mondstadt</a>
-            </li>
-            <li style="background-image: url(images/regions/liyue.jpg);">
-                <a href="regions/liyue/liyue.html">Liyue</a>
-            </li>
-            <li style="background-image: url(images/regions/inazuma.jpg);">
-                <a href="regions/inazuma/inazuma.html">Inazuma</a>
-            </li>
-            <li style="background-image: url(images/regions/sumeru.webp);">
-                <a href="regions/sumeru/sumeru.html">Sumeru</a>
-            </li>
-            <li style="background-image: url(images/regions/fontaine.webp);">
-                <a href="regions/fontaine/fontaine.html">Fontaine</a>
-            </li>
-            <li style="background-image: url(images/regions/natlan.jpg);">
-                <a href="regions/natlan/natlan.html">Natlan</a>
-            </li>
-        </ul>
-    </section>
-    </main>
+        <main class="page">
+        <section>
+            <h2>Regions</h2>
+            <ul>
+                <li style="background-image: url(images/regions/mondstadt2.webp);">
+                    <a href="regions/mondstadt/mondstadt.html">Mondstadt</a>
+                </li>
+                <li style="background-image: url(images/regions/liyue.jpg);">
+                    <a href="regions/liyue/liyue.html">Liyue</a>
+                </li>
+                <li style="background-image: url(images/regions/inazuma.jpg);">
+                    <a href="regions/inazuma/inazuma.html">Inazuma</a>
+                </li>
+                <li style="background-image: url(images/regions/sumeru.webp);">
+                    <a href="regions/sumeru/sumeru.html">Sumeru</a>
+                </li>
+                <li style="background-image: url(images/regions/fontaine.webp);">
+                    <a href="regions/fontaine/fontaine.html">Fontaine</a>
+                </li>
+                <li style="background-image: url(images/regions/natlan.jpg);">
+                    <a href="regions/natlan/natlan.html">Natlan</a>
+                </li>
+            </ul>
+        </section>
+        </main>
+    </mu-auth>
     </body>
 
 </html>

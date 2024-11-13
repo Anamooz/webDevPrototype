@@ -1,11 +1,11 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Events } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
-export class LoginForm extends HTMLElement {
+export class RegistrationForm extends HTMLElement {
   static template = html`<template>
-    <form onsubmit="false;">
+    <form>
       <slot name="title">
-        <h3>Sign in with Username and Password</h3>
+        <h3>Sign up to create a Username and Password</h3>
       </slot>
       <label>
         <span>
@@ -21,7 +21,7 @@ export class LoginForm extends HTMLElement {
       </label>
       <label>
       <slot name="submit">
-        <button type="submit">Sign In</button>
+        <button type="submit">Sign Up</button>
       </slot>
       </label>
     </form>
@@ -58,8 +58,8 @@ export class LoginForm extends HTMLElement {
 
     ::slotted(button[slot="submit"]),
     button[type="submit"] {
-      
-      align-self: end;
+      grid-column: 2 / -2;
+      align-self: center;
     }
   `;
 
@@ -71,11 +71,14 @@ export class LoginForm extends HTMLElement {
     super();
 
     shadow(this)
-      .template(LoginForm.template)
-      .styles(reset.styles, LoginForm.styles);
+      .template(RegistrationForm.template)
+      .styles(
+        reset.styles,
+        RegistrationForm.styles
+      );
 
     this.form.addEventListener("submit", (event) =>
-      submitLoginForm(
+      submitRegistrationForm(
         event,
         this.getAttribute("api"),
         this.getAttribute("redirect") || "/"
@@ -84,8 +87,9 @@ export class LoginForm extends HTMLElement {
   }
 }
 
-function submitLoginForm(event, endpoint, redirect) {
+function submitRegistrationForm(event, endpoint, redirect) {
   event.preventDefault();
+
   const form = event.target.closest("form");
   const data = new FormData(form);
   const method = "POST";
@@ -94,17 +98,18 @@ function submitLoginForm(event, endpoint, redirect) {
   };
   const body = JSON.stringify(Object.fromEntries(data));
 
-  console.log("POST login request:", body);
+  console.log("POST new user request:", body);
 
   fetch(endpoint, { method, headers, body })
     .then((res) => {
-      if (res.status !== 200)
+      if (res.status !== 201)
         throw `Form submission failed: Status ${res.status}`;
       return res.json();
     })
     .then((payload) => {
       const { token } = payload;
 
+      Events.dispatch;
       form.dispatchEvent(
         new CustomEvent("auth:message", {
           bubbles: true,

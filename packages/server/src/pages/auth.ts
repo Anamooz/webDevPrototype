@@ -7,6 +7,7 @@ const styles = [
       height: 100vh;
       display: flex;
       flex-direction: column;
+      font: var(--font-family-body);
     }
 
     main.page {
@@ -24,11 +25,16 @@ const styles = [
       grid-area: fm;
     }
 
-    p.register,
     p.login {
       display: block;
       grid-area: rq;
       text-align: center;
+      margin-top: 250px;
+    }
+
+    p.register {
+      text-align: center;
+      margin-top: 250px;
     }
   `
 ];
@@ -49,12 +55,11 @@ export class LoginPage {
         `
       ],
       body: html`<body>
-        <mu-auth provides="blazing:auth">
+        <mu-auth provides="test:auth">
           <article>
-            <blz-header> </blz-header>
             <main class="page">
               <login-form api="/auth/login">
-                <h3 slot="title">Sign in and go places!</h3>
+                <h3 slot="title">Sign in and see the best builds!</h3>
               </login-form>
               <p class="register">
                 Or did you want to
@@ -85,13 +90,12 @@ export class RegistrationPage {
         `
       ],
       body: html`<body>
-        <mu-auth provides="blazing:auth">
+        <mu-auth provides="test:auth">
           <article>
-            <blz-header> </blz-header>
             <main class="page">
               <registration-form api="/auth/register">
                 <h3 slot="title"
-                  >Sign up to plan your next trip!</h3
+                  >Sign up to save your favorite characters!</h3
                 >
               </registration-form>
               <p class="login">
