@@ -46,15 +46,21 @@ app.get("/weapon/:weaponid", (req: Request, res: Response) => {
   });
 });
 
-app.get("/user/:userid", (req: Request, res: Response) => {
-  const { userid } = req.params;
-  Users.get(userid).then((data) => {
-    const page = new UserPage(data);
-    res
-      .set("Content-Type", "text/html")
-      .send(page.render());
-  });
+app.get("/user/:username", (req: Request, res: Response) => {
+  const { username } = req.params;
+
+  Users.getByUsername(username)
+    .then((user) => {
+      const page = new UserPage(user);
+      res
+        .set("Content-Type", "text/html")
+        .send(page.render());
+    })
+    .catch((error) => {
+      res.status(404).send(`User with username ${username} not found`);
+    });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

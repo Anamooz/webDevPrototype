@@ -37,13 +37,11 @@ const router = import_express.default.Router();
 router.get("/", (_, res) => {
   import_user_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
-router.get("/:userid", (req, res) => {
-  const { userid } = req.params;
-  import_user_svc.default.get(userid).then((user) => res.json(user)).catch((err) => res.status(404).send(err));
-});
-router.get("/:userid/favoriteCharacters", (req, res) => {
-  const { userid } = req.params;
-  import_user_svc.default.get(userid).then((user) => res.json(user.favoriteCharacters)).catch((err) => res.status(404).send(err));
+router.get("/:username", (req, res) => {
+  const { username } = req.params;
+  const auth = req.token.username;
+  console.log("username:", username, auth);
+  import_user_svc.default.getByUsername(username).then((user) => res.json(user.favoriteCharacters)).catch((err) => res.status(404).send(err));
 });
 router.post("/:userid/favoriteCharacters/:characterid", (req, res) => {
   const { userid, characterid } = req.params;

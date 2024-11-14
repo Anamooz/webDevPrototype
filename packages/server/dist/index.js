@@ -57,11 +57,13 @@ app.get("/weapon/:weaponid", (req, res) => {
     res.set("Content-Type", "text/html").send(page.render());
   });
 });
-app.get("/user/:userid", (req, res) => {
-  const { userid } = req.params;
-  import_user_svc.default.get(userid).then((data) => {
-    const page = new import_user.UserPage(data);
+app.get("/user/:username", (req, res) => {
+  const { username } = req.params;
+  import_user_svc.default.getByUsername(username).then((user) => {
+    const page = new import_user.UserPage(user);
     res.set("Content-Type", "text/html").send(page.render());
+  }).catch((error) => {
+    res.status(404).send(`User with username ${username} not found`);
   });
 });
 app.listen(port, () => {

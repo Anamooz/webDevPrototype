@@ -14,10 +14,9 @@ import {
         <h1>Best Genshin Character Builds</h1>
         <p>Best weapons, artifacts, and skills and materials you'll need</p>
         <nav>
-            <a slot="actuator">
-              Hello,
-              <span id="userid"></span>
-            </a>
+          <a id="userLink" slot="actuator">
+            Hello, <span id="userid" class="username"></span>
+          </a>
             <menu>
               <li class="when-signed-in">
                 <a id="signout">Sign Out</a>
@@ -62,7 +61,11 @@ import {
       a[slot="actuator"] {
         color: var(--color-link-inverted);
         cursor: pointer;
-        
+        text-decoration: none;
+      }
+
+      .username {
+        text-decoration: underline; 
       }
 
       #userid:empty::before {
@@ -88,8 +91,10 @@ import {
     set userid(id) {
       if (id === "anonymous") {
         this._userid.textContent = "";
+        this._userLink.href = "#"; // Remove link if anonymous
       } else {
         this._userid.textContent = id;
+        this._userLink.href = `/user/${id}`; // Set the link to /user/username
       }
     }
   
@@ -103,6 +108,7 @@ import {
         );
   
       this._userid = this.shadowRoot.querySelector("#userid");
+      this._userLink = this.shadowRoot.querySelector("#userLink");
       this._signout = this.shadowRoot.querySelector("#signout");
   
       this._signout.addEventListener("click", (event) =>
@@ -119,7 +125,7 @@ import {
         }
       });
     }
-  
+
     static initializeOnce() {
       function toggleDarkMode(page, checked) {
         page.classList.toggle("dark-mode", checked);

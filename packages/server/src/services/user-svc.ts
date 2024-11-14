@@ -1,14 +1,24 @@
 import { Schema, model } from "mongoose";
 import { User } from "models/user";
+import { Credential } from "models/credential";
 import "../services/character-svc";
 import { populate } from "dotenv";
 
 const userSchema = new Schema<User>(
     {
     userid: { type: String, required: true },
-    favoriteCharacters: [{ type: Schema.Types.ObjectId, ref: "Character"}]
+    favoriteCharacters: [{ type: Schema.Types.ObjectId, ref: "Character"}],
+    username: { type: String, required: true, unique: true },
     },
     { collection: "users_collection" }
+);
+
+const credentialSchema = new Schema<Credential>(
+    {
+        username: { type: String, required: true, unique: true },
+        hashedPassword: { type: String, required: true },
+    },
+    { collection: "user_credentials" }
 );
 
 const userModel = model<User>("User", userSchema);
@@ -25,6 +35,21 @@ function get(userid: String): Promise<User> {
         return user
     });
 }
+
+function getByUsername(username: string): Promise<User> {
+    //console.log(`Searching for username: ${username}`); // Log the input
+  
+    return userModel.findOne({ username })
+      .populate("favoriteCharacters")
+      .then((user) => {
+        if (!user) {
+          console.log(`User with username ${username} not found in the database`); // Log if user is not found
+          throw new Error(`User with username ${username} not found`);
+        }
+        //console.log(`User found: ${JSON.stringify(user)}`); // Log the found user
+        return user;
+      });
+  }  
 
 function addFavoriteCharacter(userid: string, characterId: string): Promise<User> {
     return userModel.findByIdAndUpdate(
@@ -50,4 +75,4 @@ function deleteFavoriteCharacter(userid: string, characterId: string): Promise<U
     });
 }
   
-export default { index, get, addFavoriteCharacter, deleteFavoriteCharacter };
+export default { index, get, getByUsername, addFavoriteCharacter, deleteFavoriteCharacter };

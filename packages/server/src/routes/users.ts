@@ -10,19 +10,22 @@ router.get("/", (_, res: Response) => {
       .then((list: User[]) => res.json(list))
       .catch((err) => res.status(500).send(err));
   });
-  
+/*
 router.get("/:userid", (req: Request, res: Response) => {
     const { userid } = req.params;
 
     Users.get(userid)
         .then((user: User) => res.json(user))
         .catch((err) => res.status(404).send(err));
-    });
+    });*/
 
-router.get("/:userid/favoriteCharacters", (req: Request, res: Response) => {
-    const { userid } = req.params;
+router.get("/:username", (req: Request, res: Response) => {
+    const { username } = req.params;
+    const auth = req.token.username;
+
+    console.log("username:", username, auth)
     
-    Users.get(userid)
+    Users.getByUsername(username)
         .then((user: User) => res.json(user.favoriteCharacters))
         .catch((err) => res.status(404).send(err));
     });

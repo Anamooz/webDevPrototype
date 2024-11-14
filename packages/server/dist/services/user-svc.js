@@ -26,9 +26,17 @@ var import_character_svc = require("../services/character-svc");
 const userSchema = new import_mongoose.Schema(
   {
     userid: { type: String, required: true },
-    favoriteCharacters: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Character" }]
+    favoriteCharacters: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Character" }],
+    username: { type: String, required: true, unique: true }
   },
   { collection: "users_collection" }
+);
+const credentialSchema = new import_mongoose.Schema(
+  {
+    username: { type: String, required: true, unique: true },
+    hashedPassword: { type: String, required: true }
+  },
+  { collection: "user_credentials" }
 );
 const userModel = (0, import_mongoose.model)("User", userSchema);
 function index() {
@@ -37,6 +45,15 @@ function index() {
 function get(userid) {
   return userModel.findById(userid).populate("favoriteCharacters").then((user) => {
     if (!user) throw `${userid} Not Found`;
+    return user;
+  });
+}
+function getByUsername(username) {
+  return userModel.findOne({ username }).populate("favoriteCharacters").then((user) => {
+    if (!user) {
+      console.log(`User with username ${username} not found in the database`);
+      throw new Error(`User with username ${username} not found`);
+    }
     return user;
   });
 }
@@ -62,4 +79,4 @@ function deleteFavoriteCharacter(userid, characterId) {
     return user;
   });
 }
-var user_svc_default = { index, get, addFavoriteCharacter, deleteFavoriteCharacter };
+var user_svc_default = { index, get, getByUsername, addFavoriteCharacter, deleteFavoriteCharacter };

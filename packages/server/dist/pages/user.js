@@ -37,31 +37,32 @@ class UserPage {
   data;
   constructor(data) {
     this.data = data;
+    console.log("UserPage received data:", this.data);
   }
   render() {
     return (0, import_renderPage.default)({
       body: this.renderBody(),
-      stylesheets: ["/styles/destination.css"],
       styles: [
         import_server.css``
       ],
       scripts: [
-        `import { define } from "@calpoly/mustang";
+        `import { define , Auth } from "@calpoly/mustang";
                 import { userElement } from "/scripts/user.js";
 
                 define({
+                "mu-auth": Auth.Provider,
                 "user-element": userElement
                 });`
       ]
     });
   }
   renderBody() {
-    const { favoriteCharacters, _id } = this.data;
-    console.log(favoriteCharacters[0].toObject());
-    return import_server.html` 
-            <user-element src="/api/users/${_id}">
-
-            </user-element>
+    const { favoriteCharacters, username } = this.data;
+    return import_server.html`
+          <h1>User Profile: ${username}</h1>
+          <mu-auth provides="test:auth">
+            <user-element src="/api/users/${username}"></user-element>
+          </mu-auth>
         `;
   }
 }

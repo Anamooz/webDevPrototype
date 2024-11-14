@@ -19,9 +19,7 @@ export class userElement extends HTMLElement {
     
     <h1>Favorite Characters</h1>
     <ul>
-      <li>
       <slot name="favoriteCharacters"></slot>
-      </li>
       <slot name="name"></slot>  
     </ul>
     </template>`;
@@ -65,8 +63,8 @@ export class userElement extends HTMLElement {
     static observedAttributes = ["src"];
 
     attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "src" && oldValue !== newValue && newValue)
-        this.hydrate(newValue);
+      //if (name === "src" && oldValue !== newValue && newValue)
+        //this.hydrate(newValue);
     }
 
     get authorization() {
@@ -86,7 +84,7 @@ export class userElement extends HTMLElement {
         })
         .then((json) => {
           this.renderSlots(json);
-          this.form.init = json;
+          //this.form.init = json;
         })
         .catch((error) => {
           console.log(`Failed to render data ${url}:`, error);
@@ -100,7 +98,7 @@ export class userElement extends HTMLElement {
     }
 
     renderSlots(json) {
-      const entries = Object.entries(json);
+      const entries = [[ "favoriteCharacters", json ]];
       const toSlot = ([key, value]) => {
       
         switch (typeof value) {

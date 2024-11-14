@@ -7,20 +7,21 @@ export class UserPage {
 
     constructor(data: User){
         this.data = data;
+        console.log("UserPage received data:", this.data);
     }
 
     render() {
         return renderPage({
           body: this.renderBody(),
-                stylesheets: ["/styles/destination.css"],
             styles: [
                 css``
             ],
             scripts: [
-                `import { define } from "@calpoly/mustang";
+                `import { define , Auth } from "@calpoly/mustang";
                 import { userElement } from "/scripts/user.js";
 
                 define({
+                "mu-auth": Auth.Provider,
                 "user-element": userElement
                 });`
             ]
@@ -28,12 +29,14 @@ export class UserPage {
     }
 
     renderBody() {
-        const { favoriteCharacters, _id } = this.data;
-        console.log(favoriteCharacters[0].toObject());
-        return html` 
-            <user-element src="/api/users/${_id}">
-
-            </user-element>
+        const { favoriteCharacters, username } = this.data;
+      
+        return html`
+          <h1>User Profile: ${username}</h1>
+          <mu-auth provides="test:auth">
+            <user-element src="/api/users/${username}"></user-element>
+          </mu-auth>
         `;
-    }
+      }      
+    
 }
