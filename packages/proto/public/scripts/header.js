@@ -34,17 +34,17 @@ import {
       :host {
         display: contents;
       }
-      header {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: bottom;
+        
+      header {      
         justify-content: space-between;
         background-color: var(--color-background-page);
         color: var(--color-text);
+        margin-left: 40px;
+        padding-top: 40px;
       }
 
       header p {
-        font-size: 50px;
+        font-size: 28px;
       }
 
       header h1 {
@@ -54,20 +54,26 @@ import {
       nav {
         display: flex;
         flex-direction: column;
-        flex-basis: max-content;
         align-items: end;
+        margin-right: 20px;
+        
       }
+
       a[slot="actuator"] {
         color: var(--color-link-inverted);
         cursor: pointer;
+        
       }
+
       #userid:empty::before {
         content: "traveler";
       }
+
       menu a {
         color: var(--color-link);
         cursor: pointer;
         text-decoration: underline;
+        
       }
       a:has(#userid:empty) ~ menu > .when-signed-in,
       a:has(#userid:not(:empty)) ~ menu > .when-signed-out {
@@ -95,16 +101,6 @@ import {
           reset.styles,
           HeaderElement.styles
         );
-  
-      const dm = this.shadowRoot.querySelector(
-        ".dark-mode-switch"
-      );
-  
-      dm.addEventListener("click", (event) =>
-        Events.relay(event, "dark-mode", {
-          checked: event.target.checked
-        })
-      );
   
       this._userid = this.shadowRoot.querySelector("#userid");
       this._signout = this.shadowRoot.querySelector("#signout");
