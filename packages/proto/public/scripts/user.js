@@ -43,7 +43,7 @@ export class userElement extends HTMLElement {
             .styles(reset.styles, userElement.styles);
     }
 
-    _authObserver = new Observer(this, "blazing:auth");
+    _authObserver = new Observer(this, "test:auth");
 
     connectedCallback() {
       this._authObserver.observe(({ user }) => {
