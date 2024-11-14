@@ -1,4 +1,12 @@
-import { css, html, shadow, Events } from "@calpoly/mustang";
+import {
+  css,
+  define,
+  html,
+  shadow,
+  Form,
+  InputArray,
+  Observer
+} from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class RegistrationForm extends HTMLElement {
