@@ -29,10 +29,9 @@ export class UserPage {
     }
 
     renderBody() {
-        const { favoriteCharacters, username } = this.data;
+        const { username } = this.data;
       
         return html`
-          <h1>User Profile: ${username}</h1>
           <mu-auth provides="test:auth">
             <user-element src="/api/users/${username}"></user-element>
           </mu-auth>

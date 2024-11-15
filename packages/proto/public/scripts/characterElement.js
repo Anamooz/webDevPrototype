@@ -64,6 +64,5 @@ export class characterElement extends HTMLElement {
     
       return entries.map(toSlot);
       
-    
   }
 }

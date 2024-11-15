@@ -18,26 +18,31 @@ export class userElement extends HTMLElement {
     static template = html`<template>
     
     <h1>Favorite Characters</h1>
-    <ul>
+    <section>
       <slot name="favoriteCharacters"></slot>
       <slot name="name"></slot>  
-    </ul>
+    </section>
     </template>`;
 
     static styles = css`
 
     h1 {
         font-family: var(--font-family-display);
-        font-size: 40px;
+        background-color: var(--color-background-page);
+        color: var(--color-text);
+        font-size: 56px;
         padding-left: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+        text-align: center;
     }
 
-    li {
+    section {
+      display: flex;
+      flex-direction: column;
       font-family: var(--font-family-body);
-      font-size: 22px; 
+      font-size: 36px; 
       margin-left: 20px;
+      text-align: center;
     }
     
   `;
@@ -63,8 +68,8 @@ export class userElement extends HTMLElement {
     static observedAttributes = ["src"];
 
     attributeChangedCallback(name, oldValue, newValue) {
-      //if (name === "src" && oldValue !== newValue && newValue)
-        //this.hydrate(newValue);
+      if (name === "src" && oldValue !== newValue && newValue)
+        this.hydrate(newValue);
     }
 
     get authorization() {
@@ -84,7 +89,7 @@ export class userElement extends HTMLElement {
         })
         .then((json) => {
           this.renderSlots(json);
-          //this.form.init = json;
+          this.form.init = json;
         })
         .catch((error) => {
           console.log(`Failed to render data ${url}:`, error);
