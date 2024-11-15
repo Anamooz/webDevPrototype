@@ -5,7 +5,7 @@ import {
   shadow,
   Form,
   InputArray,
-  Observer
+  Observer,
 } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
@@ -28,9 +28,9 @@ export class RegistrationForm extends HTMLElement {
         <input type="password" name="password" />
       </label>
       <label>
-      <slot name="submit">
-        <button type="submit">Sign Up</button>
-      </slot>
+        <slot name="submit">
+          <button type="submit">Sign Up</button>
+        </slot>
       </label>
     </form>
   </template>`;
@@ -49,8 +49,6 @@ export class RegistrationForm extends HTMLElement {
       > span {
         grid-column: 1 / 2;
         padding-bottom: 5px;
-        
-        
       }
       > input {
         grid-column: 1 / 2;
@@ -80,10 +78,7 @@ export class RegistrationForm extends HTMLElement {
 
     shadow(this)
       .template(RegistrationForm.template)
-      .styles(
-        reset.styles,
-        RegistrationForm.styles
-      );
+      .styles(reset.styles, RegistrationForm.styles);
 
     this.form.addEventListener("submit", (event) =>
       submitRegistrationForm(
@@ -102,7 +97,7 @@ function submitRegistrationForm(event, endpoint, redirect) {
   const data = new FormData(form);
   const method = "POST";
   const headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   };
   const body = JSON.stringify(Object.fromEntries(data));
 
@@ -122,7 +117,7 @@ function submitRegistrationForm(event, endpoint, redirect) {
         new CustomEvent("auth:message", {
           bubbles: true,
           composed: true,
-          detail: ["auth/signin", { token, redirect }]
+          detail: ["auth/signin", { token, redirect }],
         })
       );
     })

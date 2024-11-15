@@ -5,7 +5,7 @@ import {
   shadow,
   Form,
   InputArray,
-  Observer
+  Observer,
 } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
@@ -28,9 +28,9 @@ export class LoginForm extends HTMLElement {
         <input type="password" name="password" />
       </label>
       <label>
-      <slot name="submit">
-        <button type="submit">Sign In</button>
-      </slot>
+        <slot name="submit">
+          <button type="submit">Sign In</button>
+        </slot>
       </label>
     </form>
   </template>`;
@@ -49,8 +49,6 @@ export class LoginForm extends HTMLElement {
       > span {
         grid-column: 1 / 2;
         padding-bottom: 5px;
-        
-        
       }
       > input {
         grid-column: 1 / 2;
@@ -66,7 +64,6 @@ export class LoginForm extends HTMLElement {
 
     ::slotted(button[slot="submit"]),
     button[type="submit"] {
-      
       align-self: end;
     }
   `;
@@ -98,7 +95,7 @@ function submitLoginForm(event, endpoint, redirect) {
   const data = new FormData(form);
   const method = "POST";
   const headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   };
   const body = JSON.stringify(Object.fromEntries(data));
 
@@ -117,7 +114,7 @@ function submitLoginForm(event, endpoint, redirect) {
         new CustomEvent("auth:message", {
           bubbles: true,
           composed: true,
-          detail: ["auth/signin", { token, redirect }]
+          detail: ["auth/signin", { token, redirect }],
         })
       );
     })

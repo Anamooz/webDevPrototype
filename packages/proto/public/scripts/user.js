@@ -5,120 +5,117 @@ import {
   shadow,
   Form,
   InputArray,
-  Observer
+  Observer,
 } from "@calpoly/mustang";
 import { characterElement } from "./characterElement.js";
 import reset from "./styles/reset.css.js";
 
 export class userElement extends HTMLElement {
-  get src() {
-    return this.getAttribute("src");
-  }
+  static uses = define({
+    "mu-form": Form.Element,
+    "input-array": InputArray.Element,
+  });
 
-    static template = html`<template>
-    
+  static template = html`<template>
     <h1>Favorite Characters</h1>
     <section>
       <slot name="favoriteCharacters"></slot>
-      <slot name="name"></slot>  
+      <slot name="name"></slot>
     </section>
-    </template>`;
+  </template>`;
 
-    static styles = css`
-
+  static styles = css`
     h1 {
-        font-family: var(--font-family-display);
-        background-color: var(--color-background-page);
-        color: var(--color-text);
-        font-size: 56px;
-        padding-left: 20px;
-        margin-bottom: 50px;
-        text-align: center;
+      font-family: var(--font-family-display);
+      background-color: var(--color-background-page);
+      color: var(--color-text);
+      font-size: 56px;
+      padding-left: 20px;
+      margin-bottom: 50px;
+      text-align: center;
     }
 
     section {
       display: flex;
       flex-direction: column;
       font-family: var(--font-family-body);
-      font-size: 36px; 
+      font-size: 36px;
       margin-left: 20px;
       text-align: center;
     }
-    
   `;
 
-    constructor() {
-        super();
-        shadow(this)
-            .template(userElement.template)
-            .styles(reset.styles, userElement.styles);
-    }
+  get src() {
+    return this.getAttribute("src");
+  }
 
-    _authObserver = new Observer(this, "test:auth");
+  constructor() {
+    super();
+    shadow(this)
+      .template(userElement.template)
+      .styles(reset.styles, userElement.styles);
+  }
 
-    connectedCallback() {
-      this._authObserver.observe(({ user }) => {
-        console.log("Authenticated user:", user);
-        this._user = user;
-        if (this.src && this.mode !== "new")
-          this.hydrate(this.src);
+  _authObserver = new Observer(this, "test:auth");
+
+  connectedCallback() {
+    this._authObserver.observe(({ user }) => {
+      console.log("Authenticated user:", user);
+      this._user = user;
+      if (this.src && this.mode !== "new") this.hydrate(this.src);
+    });
+  }
+
+  static observedAttributes = ["src"];
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "src" && oldValue !== newValue && newValue)
+      this.hydrate(newValue);
+  }
+
+  get authorization() {
+    console.log("Authorization for user, ", this._user);
+    if (this._user && this._user.authenticated)
+      return {
+        Authorization: `Bearer ${this._user.token}`,
+      };
+    else return {};
+  }
+
+  hydrate(url) {
+    fetch(url, { headers: this.authorization })
+      .then((res) => {
+        if (res.status !== 200) throw `Status: ${res.status}`;
+        return res.json();
+      })
+      .then((json) => {
+        this.renderSlots(json);
+        this.form.init = json;
+      })
+      .catch((error) => {
+        console.log(`Failed to render data ${url}:`, error);
       });
-    }
+  }
 
-    static observedAttributes = ["src"];
+  renderCharacter(key, json) {
+    return html`<character-element slot=${key}>
+      ${characterElement.renderSlots(json)}
+    </character-element>`;
+  }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "src" && oldValue !== newValue && newValue)
-        this.hydrate(newValue);
-    }
-
-    get authorization() {
-      console.log("Authorization for user, ", this._user);
-      if (this._user && this._user.authenticated)
-        return {
-          Authorization: `Bearer ${this._user.token}`
-        };
-      else return {};
-    }
-
-    hydrate(url) {
-      fetch(url, { headers: this.authorization })
-        .then((res) => {
-          if (res.status !== 200) throw `Status: ${res.status}`;
-          return res.json();
-        })
-        .then((json) => {
-          this.renderSlots(json);
-          this.form.init = json;
-        })
-        .catch((error) => {
-          console.log(`Failed to render data ${url}:`, error);
-        });
-    }
-
-    renderCharacter(key, json) {
-        return html`<character-element slot=${key}>
-        ${characterElement.renderSlots(json)}
-      </character-element>`
-    }
-
-    renderSlots(json) {
-      const entries = [[ "favoriteCharacters", json ]];
-      const toSlot = ([key, value]) => {
-      
-        switch (typeof value) {
-          case "object":
-            if (Array.isArray(value))
-              return html`
-                ${value.map((s) => this.renderCharacter(key, s))}
-              `;
-          default:
-            return html`<span slot="${key}">${value}</span>`;
-        }
+  renderSlots(json) {
+    const entries = [["favoriteCharacters", json]];
+    const toSlot = ([key, value]) => {
+      switch (typeof value) {
+        case "object":
+          if (Array.isArray(value))
+            return html` ${value.map((s) => this.renderCharacter(key, s))} `;
+        default:
+          return html`<span slot="${key}">${value}</span>`;
       }
-    
-      const fragment = entries.map(toSlot);
-      this.replaceChildren(...fragment);
-    
+    };
+
+    const fragment = entries.map(toSlot);
+    this.replaceChildren(...fragment);
   }
 }
