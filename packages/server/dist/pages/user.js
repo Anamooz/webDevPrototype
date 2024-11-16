@@ -37,7 +37,6 @@ class UserPage {
   data;
   constructor(data) {
     this.data = data;
-    console.log("UserPage received data:", this.data);
   }
   render() {
     return (0, import_renderPage.default)({

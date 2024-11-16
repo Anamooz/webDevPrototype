@@ -34,7 +34,12 @@ module.exports = __toCommonJS(characters_exports);
 var import_express = __toESM(require("express"));
 var import_character_svc = __toESM(require("../services/character-svc"));
 const router = import_express.default.Router();
-router.get("/", (_, res) => {
-  import_character_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
+router.get("/", async (req, res) => {
+  try {
+    const characters = await import_character_svc.default.index();
+    res.json(characters);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve characters." });
+  }
 });
 var characters_default = router;

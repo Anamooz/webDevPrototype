@@ -7,7 +7,6 @@ export class UserPage {
 
     constructor(data: User){
         this.data = data;
-        console.log("UserPage received data:", this.data);
     }
 
     render() {

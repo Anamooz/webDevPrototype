@@ -31,13 +31,15 @@ var import_users = __toESM(require("./routes/users"));
 var import_auth = __toESM(require("./routes/auth"));
 var import_auth2 = require("./pages/auth");
 var import_auth3 = require("./pages/auth");
+var import_characters = __toESM(require("./routes/characters"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
-app.use("/api/users", import_auth.authenticateUser, import_users.default);
+app.use("/api/users", import_users.default);
+app.use("/api/characters", import_characters.default);
 (0, import_mongo.connect)("test");
 app.get("/hello", (req, res) => {
   res.send("Hello, World");

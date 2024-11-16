@@ -23,20 +23,14 @@ __export(user_svc_exports, {
 module.exports = __toCommonJS(user_svc_exports);
 var import_mongoose = require("mongoose");
 var import_character_svc = require("../services/character-svc");
+var import_mongoose2 = require("mongoose");
 const userSchema = new import_mongoose.Schema(
   {
-    userid: { type: String, required: true },
+    userid: { type: String },
     favoriteCharacters: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Character" }],
     username: { type: String, required: true, unique: true }
   },
   { collection: "users_collection" }
-);
-const credentialSchema = new import_mongoose.Schema(
-  {
-    username: { type: String, required: true, unique: true },
-    hashedPassword: { type: String, required: true }
-  },
-  { collection: "user_credentials" }
 );
 const userModel = (0, import_mongoose.model)("User", userSchema);
 function index() {
@@ -46,6 +40,25 @@ function get(userid) {
   return userModel.findById(userid).populate("favoriteCharacters").then((user) => {
     if (!user) throw `${userid} Not Found`;
     return user;
+  });
+}
+function addFavoriteCharacterById(username, characterId) {
+  return userModel.findOne({ username }).then((user) => {
+    if (!user) throw new Error(`User with username "${username}" not found`);
+    if (!import_mongoose2.Types.ObjectId.isValid(characterId)) {
+      throw new Error(`Invalid ObjectId: ${characterId}`);
+    }
+    const favoriteCharactersSet = new Set(
+      user.favoriteCharacters.map((id) => id.toString())
+    );
+    favoriteCharactersSet.add(characterId);
+    user.favoriteCharacters = Array.from(favoriteCharactersSet).map(
+      (id) => new import_mongoose2.Types.ObjectId(id)
+    );
+    return user.save();
+  }).then((updatedUser) => updatedUser.populate("favoriteCharacters")).catch((err) => {
+    console.error(`Failed to add favorite character: ${err.message}`);
+    throw new Error(`Failed to add favorite character: ${err.message}`);
   });
 }
 function getByUsername(username) {
@@ -79,4 +92,11 @@ function deleteFavoriteCharacter(userid, characterId) {
     return user;
   });
 }
-var user_svc_default = { index, get, getByUsername, addFavoriteCharacter, deleteFavoriteCharacter };
+var user_svc_default = {
+  index,
+  get,
+  addFavoriteCharacterById,
+  getByUsername,
+  addFavoriteCharacter,
+  deleteFavoriteCharacter
+};

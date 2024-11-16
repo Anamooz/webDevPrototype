@@ -39,16 +39,24 @@ router.get("/", (_, res) => {
 });
 router.get("/:username", (req, res) => {
   const { username } = req.params;
-  const auth = req.token.username;
-  console.log("username:", username, auth);
   import_user_svc.default.getByUsername(username).then((user) => res.json(user.favoriteCharacters)).catch((err) => res.status(404).send(err));
 });
-router.post("/:userid/favoriteCharacters/:characterid", (req, res) => {
-  const { userid, characterid } = req.params;
-  import_user_svc.default.addFavoriteCharacter(userid, characterid).then((user) => res.status(201).json(user)).catch((err) => res.status(500).send(err));
+router.put("/:username/favoriteCharacters/:characterid", (req, res) => {
+  const { username, characterid } = req.params;
+  import_user_svc.default.addFavoriteCharacterById(username, characterid).then((updatedUser) => res.status(200).json(updatedUser)).catch((err) => res.status(500).send(err.message));
 });
-router.delete("/:userid/favoriteCharacters/:characterid", (req, res) => {
-  const { userid, characterid } = req.params;
-  import_user_svc.default.deleteFavoriteCharacter(userid, characterid).then((user) => res.status(200).json(user)).catch((err) => res.status(404).send(err));
-});
+router.post(
+  "/:userid/favoriteCharacters/:characterid",
+  (req, res) => {
+    const { userid, characterid } = req.params;
+    import_user_svc.default.addFavoriteCharacter(userid, characterid).then((user) => res.status(201).json(user)).catch((err) => res.status(500).send(err));
+  }
+);
+router.delete(
+  "/:userid/favoriteCharacters/:characterid",
+  (req, res) => {
+    const { userid, characterid } = req.params;
+    import_user_svc.default.deleteFavoriteCharacter(userid, characterid).then((user) => res.status(200).json(user)).catch((err) => res.status(404).send(err));
+  }
+);
 var users_default = router;

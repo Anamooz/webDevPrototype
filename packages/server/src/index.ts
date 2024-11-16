@@ -9,6 +9,7 @@ import users from "./routes/users";
 import auth, { authenticateUser } from "./routes/auth";
 import { LoginPage } from "./pages/auth";
 import { RegistrationPage } from "./pages/auth";
+import characters from "./routes/characters";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,7 +19,8 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 app.use("/auth", auth);
-app.use("/api/users", authenticateUser, users);
+app.use("/api/users", users);
+app.use("/api/characters", characters);
 
 connect("test");
 
