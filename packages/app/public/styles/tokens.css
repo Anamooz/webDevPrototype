@@ -1,0 +1,53 @@
+:root {
+    --color-background-page: #495670;
+    --color-text: #FFFFFF;
+    --color-text-body: black; 
+    --font-family-body: Karma, "Lucida Bright", "Times New Roman", serif;
+    --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
+    --font-size-tiny: 17px;
+
+    --color-geo: #dcac37;
+    --color-pyro: #a90e09;
+    --color-cryo: #4682B4;
+    --color-hydro: #0098ff;
+    --color-dendro: #608a00;
+    --color-anemo: #359697;
+    --color-electro: #945dc4;
+
+    --color-navy: #3853a3;
+
+    --color-character-page-background: rgb(245, 239, 239); 
+
+    --img-height: 256px;
+    --img-width: 256px;
+    --img-border-radius: 12px;
+    --img-ridge: 2px;
+    --img-background-color: white;
+
+    --gallery-li-row-gap: 5px;
+    --gallery-row-gap: 25px;
+
+    --artifact-font-size: 25px;
+    --artifact-padding: 25px;
+
+    --artifact-substat-title-font-size: 22px;
+    --artifact-substat-padding-left: 30px;
+    --artifact-substat-margin-bottom: 30px;
+    --artifact-substat-margin-top: 30px;
+    --artifact-p-padding-left: 35px;
+
+    --character-header-font-size: 20px;
+    --character-header-padding: 10px;
+
+    --character-subheader-font-size: 20px;
+    --character-subheader-padding: 13px;
+    --character-subheader-padding-left: 30px;
+    --character-subheader-margin-top: 10px;
+    --character-subheader-margin-bottom: 30px;
+}
+
+body.dark-mode {
+    --color-character-page-background: rgb(0, 0, 0);
+    --color-text-body: rgba(255, 255, 255, 0.885);
+    --img-background-color: rgb(183, 173, 173);
+}
