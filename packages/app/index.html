@@ -1,60 +1,73 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-        <link rel="stylesheet" href="/styles/reset.css">
-        <link rel="stylesheet" href="/styles/homepage.css" />
-        <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/homepage.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
 
-        <script type="importmap">
-            {
-              "imports": {
-                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
-              }
-            }
-        </script>
-    </head>
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { HeaderElement } from "/scripts/header.js";
 
-    <body>
+      define({
+        "genshin-header": HeaderElement,
+        "mu-auth": Auth.Provider,
+      });
+      HeaderElement.initializeOnce();
+    </script>
+  </head>
+
+  <body>
     <mu-auth provides="test:auth">
-        <genshin-header>
-            
-        </genshin-header>
+      <genshin-header> </genshin-header>
 
-        <main class="page">
+      <main class="page">
         <section>
-            <h2>Regions</h2>
-            <ul>
-                <li style="background-image: url(images/regions/mondstadt2.webp);">
-                    <a href="regions/mondstadt/mondstadt.html">Mondstadt</a>
-                </li>
-                <li style="background-image: url(images/regions/liyue.jpg);">
-                    <a href="regions/liyue/liyue.html">Liyue</a>
-                </li>
-                <li style="background-image: url(images/regions/inazuma.jpg);">
-                    <a href="regions/inazuma/inazuma.html">Inazuma</a>
-                </li>
-                <li style="background-image: url(images/regions/sumeru.webp);">
-                    <a href="regions/sumeru/sumeru.html">Sumeru</a>
-                </li>
-                <li style="background-image: url(images/regions/fontaine.webp);">
-                    <a href="regions/fontaine/fontaine.html">Fontaine</a>
-                </li>
-                <li style="background-image: url(images/regions/natlan.jpg);">
-                    <a href="regions/natlan/natlan.html">Natlan</a>
-                </li>
-            </ul>
+          <h2>Regions</h2>
+          <ul>
+            <li style="background-image: url(images/regions/mondstadt2.webp)">
+              <a href="regions/mondstadt/mondstadt.html">Mondstadt</a>
+            </li>
+            <li style="background-image: url(images/regions/liyue.jpg)">
+              <a href="regions/liyue/liyue.html">Liyue</a>
+            </li>
+            <li style="background-image: url(images/regions/inazuma.jpg)">
+              <a href="regions/inazuma/inazuma.html">Inazuma</a>
+            </li>
+            <li style="background-image: url(images/regions/sumeru.webp)">
+              <a href="regions/sumeru/sumeru.html">Sumeru</a>
+            </li>
+            <li style="background-image: url(images/regions/fontaine.webp)">
+              <a href="regions/fontaine/fontaine.html">Fontaine</a>
+            </li>
+            <li style="background-image: url(images/regions/natlan.jpg)">
+              <a href="regions/natlan/natlan.html">Natlan</a>
+            </li>
+          </ul>
         </section>
-        </main>
+      </main>
     </mu-auth>
-    </body>
-
+  </body>
 </html>

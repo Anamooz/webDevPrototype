@@ -23,9 +23,10 @@ router.get("/:username", (req: Request, res: Response) => {
   const { username } = req.params;
 
   Users.getByUsername(username)
-    .then((user: User) => res.json(user.favoriteCharacters))
+    .then((user: User) => res.json(user))
     .catch((err) => res.status(404).send(err));
 });
+
 
 router.put("/:username/favoriteCharacters/:characterid", (req: Request, res: Response) => {
     const { username, characterid } = req.params;

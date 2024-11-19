@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import { User } from "models/user";
-import { Credential } from "models/credential";
 import "../services/character-svc";
 import { populate } from "dotenv";
 import { Types } from "mongoose";

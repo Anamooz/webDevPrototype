@@ -39,7 +39,7 @@ router.get("/", (_, res) => {
 });
 router.get("/:username", (req, res) => {
   const { username } = req.params;
-  import_user_svc.default.getByUsername(username).then((user) => res.json(user.favoriteCharacters)).catch((err) => res.status(404).send(err));
+  import_user_svc.default.getByUsername(username).then((user) => res.json(user)).catch((err) => res.status(404).send(err));
 });
 router.put("/:username/favoriteCharacters/:characterid", (req, res) => {
   const { username, characterid } = req.params;
