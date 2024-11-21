@@ -77,4 +77,20 @@ export class GenshinHeaderElement extends LitElement {
       display: none;
     }
   `;
+
+  static initializeOnce() {
+    function toggleDarkMode(
+      page: HTMLElement,
+      checked: boolean
+    ) {
+      page.classList.toggle("dark-mode", checked);
+    }
+
+    document.body.addEventListener("dark-mode", (event) =>
+      toggleDarkMode(
+        event.currentTarget as HTMLElement,
+        (event as CustomEvent).detail?.checked
+      )
+    );
+  }
 }
