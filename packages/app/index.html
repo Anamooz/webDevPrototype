@@ -20,13 +20,13 @@
     <link rel="stylesheet" href="/styles/homepage.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
 
-    <script type="module">
+    <script type="module" src="/src/main">
       import { define, Auth, Events } from "@calpoly/mustang";
-      import { UserElement } from "/src/components/user-element.ts";
+      import { GenshinHeaderElement } from "/src/components/genshin-header.ts";
 
       define({
         "mu-auth": Auth.Provider,
-        "user-element": UserElement,
+        "genshin-header": GenshinHeaderElement,
       });
       window.relayEvent = Events.relay;
       
@@ -34,8 +34,8 @@
   </head>
 
   <body>
-    <mu-auth provides="test:auth" redirect="./login.html">
-      <user-element></user-element>
+    <mu-auth provides="test:auth" redirect="./login">
+      <genshin-header></genshin-header>
       <genshin-app></genshin-app>
     </mu-auth>
   </body>

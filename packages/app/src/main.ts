@@ -1,6 +1,5 @@
 import { Auth, define } from "@calpoly/mustang";
 import { html, LitElement } from "lit";
-//import { UserElement } from "./components/user-element";
 import { FavoriteViewElement } from "./views/favorites-view";
 import { GenshinHeaderElement } from "./components/genshin-header";
 
@@ -24,5 +23,5 @@ class AppElement extends LitElement {
 define({
   "mu-auth": Auth.Provider,
   "genshin-app": AppElement,
-  "blazing-header": GenshinHeaderElement
+  "genshin-header": GenshinHeaderElement
 });

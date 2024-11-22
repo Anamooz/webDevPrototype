@@ -31,16 +31,17 @@ export class HeaderElement extends HTMLElement {
       justify-content: space-between;
       background-color: var(--color-background-page);
       color: var(--color-text);
-      margin-left: 40px;
       padding-top: 40px;
     }
 
     header p {
       font-size: 28px;
+      margin-left: 40px;
     }
 
     header h1 {
       font-size: 50px;
+      margin-left: 40px;
     }
 
     nav {

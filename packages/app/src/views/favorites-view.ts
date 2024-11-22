@@ -1,69 +1,204 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { html, LitElement } from "lit";
-import { state } from "lit/decorators.js";
+import { Auth, define, Observer, Form } from "@calpoly/mustang";
+import { css, html, LitElement } from "lit";
+import { property, state } from "lit/decorators.js";
 import { User } from "server/src/models/user.ts";
 
 export class FavoriteViewElement extends LitElement {
-  src = "/api/users";
+  static uses = define({
+    "mu-form": Form.Element,
+  });
+
+  @property()
+  mode = "view";
+
+  get src() {
+    const { username } = this._user || {};
+    return `/api/users/${username}`;
+  }
+
+  handleSubmit(event: Event) {
+    event.preventDefault(); // Prevent any default behavior
+    console.log("Submit event triggered!");
+    
+    // Extract selected character's ID
+    const formData = new FormData(event.target as HTMLFormElement);
+    const characterId = formData.get("newFavoriteCharacter");
+  
+    if (characterId) {
+      console.log("Selected character ID:", characterId);
+  
+      // Add to user's favorites
+      const character = this.favoriteIndex.find((c) => c._id === characterId);
+      if (character) {
+        this.favoriteIndex = [...this.favoriteIndex, character];
+        console.log("New favorite characters list:", this.favoriteIndex);
+      }
+    }
+  
+    // Switch back to view mode
+    this.switchToViewMode();
+  }
+  
+  
+
+  switchToEditMode() {
+    console.log("Switching to edit mode...");
+    this.setAttribute("mode", "edit");
+  }
+  
+  switchToViewMode() {
+    console.log("Switching to view mode...");
+    this.setAttribute("mode", "view");
+  }
 
   @state()
   favoriteIndex = new Array<User>();
 
+  @state()
+  user?: User;
+
   render() {
-    const favoriteList = this.favoriteIndex.map(this.renderItem);
-
     return html`
-      <main class="page">
-        <header>
-          <h2>Favorite Characters</h2>
-        </header>
-        <dl>${favoriteList}</dl>
-      </main>
+      <section class="view">
+        <h1>Favorite Characters</h1>
+        <section>
+          <dl>
+            ${this.favoriteIndex.map((character) => this.renderItem(character))}
+          </dl>
+          <slot name="name"></slot>
+        </section>
+        <button id="edit" @click=${this.switchToEditMode}>Edit</button>
+      </section>
+      <mu-form 
+  class="edit" 
+  ?hidden=${this.getAttribute("mode") !== "edit"} 
+  @submit=${this.handleSubmit}>
+        <label>
+          <span>Add a favorite character</span>
+          <select name="newFavoriteCharacter"></select>
+        </label>
+      </mu-form>
     `;
   }
+  
 
-  renderItem(user: User) {
-    const { favoriteCharacters, username } = user;
-    return html`
-      <dt>${username}</dt>
-      <dd>${favoriteCharacters}</dd>
-    `;
+  renderItem(character: { name: string; _id: string }) {
+    return html`<dt>${character.name}</dt>`;
   }
 
-  async hydrate(url: string) {
-    try {
-      // Fetch user data from the given URL with authentication headers
-      const response = await fetch(url, {
-        headers: Auth.headers(this._user),
+  static styles = [
+    css`
+      :host {
+        display: contents;
+      }
+
+      :host([mode="edit"]) {
+        --display-view-none: none;
+        --display-editor-none: block;
+      }
+
+      :host([mode="view"]) {
+        --display-view-none: block;
+        --display-editor-none: none;
+      }
+
+      section.view {
+        display: var(--display-view-none, block);
+      }
+
+      mu-form.edit {
+        display: var(--display-editor-none, none);
+      }
+
+      mu-form.edit select {
+        margin-bottom: 10px;
+      }
+
+      mu-form.edit button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+
+      label {
+        margin-top: 50px;
+      }
+
+      button {
+        color: white;
+        background-color: var(--color-background-page);
+        padding: 5px;
+      }
+
+      h1 {
+        font-family: var(--font-family-display);
+        color: var(--color-text);
+        font-size: 40px;
+        margin-bottom: 50px;
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      section {
+        display: flex;
+        flex-direction: column;
+        font-family: var(--font-family-body);
+        font-size: 36px;
+        text-align: center;
+      }
+
+      span, dl{
+        color: var(--color-text);
+      }
+    `,
+  ];
+
+  hydrate(url: string) {
+    fetch(url, {
+      headers: Auth.headers(this._user),
+    })
+      .then((res) => {
+        if (res.status !== 200) throw new Error(`Status: ${res.status}`);
+        return res.json();
+      })
+      .then((json: User) => {
+        // Set the user and favoriteIndex state
+        this.user = json;
+        this.favoriteIndex = json.favoriteCharacters || []; // Populate favoriteIndex
+        console.log("Fetched user data:", json);
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch data from ${url}:`, error);
       });
+  }
 
-      // Check for successful response
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-
-      // Parse the response JSON
-      const json = await response.json();
-      console.log("Response JSON:", json);
-
-      // Validate the response structure and extract `data`
-      if (json && typeof json === "object" && "data" in json) {
-        const { data } = json as { data: Array<User> };
-
-        // Map the user data into your component's `favoriteIndex`
-        this.favoriteIndex = data.map((user) => ({
-          ...user,
-          favoriteCharacters: user.favoriteCharacters.map((character: any) => ({
-            ...character,
-            _id: character._id.toString(), // Ensure `ObjectId` is a string
-          })),
-        }));
-      } else {
-        console.warn("Unexpected JSON structure:", json);
-      }
-    } catch (err) {
-      console.error("Failed to load user data:", err);
-    }
+  populateCharacterDropdown() {
+    fetch("/api/characters", {
+      headers: Auth.headers(this._user),
+    })
+      .then((res) => {
+        if (!res.ok)
+          throw new Error(`Failed to fetch characters: ${res.status}`);
+        return res.json();
+      })
+      .then((characters: { _id: string; name: string }[]) => {
+        const dropdown = this.shadowRoot?.querySelector(
+          "select[name='newFavoriteCharacter']"
+        );
+        if (dropdown) {
+          dropdown.innerHTML = ""; // Clear existing options
+          characters.forEach((character) => {
+            const option = document.createElement("option");
+            option.value = character._id;
+            option.textContent = character.name;
+            dropdown.appendChild(option);
+          });
+        }
+        console.log("Dropdown populated with characters:", characters);
+      })
+      .catch((error) => {
+        console.error("Failed to populate dropdown:", error);
+      });
   }
 
   _authObserver = new Observer<Auth.Model>(this, "test:auth");
@@ -75,8 +210,10 @@ export class FavoriteViewElement extends LitElement {
     this._authObserver.observe(({ user }) => {
       if (user) {
         this._user = user;
+        console.log("User from view:", user);
+        this.hydrate(this.src);
+        this.populateCharacterDropdown();
       }
-      this.hydrate(this.src);
     });
   }
 }

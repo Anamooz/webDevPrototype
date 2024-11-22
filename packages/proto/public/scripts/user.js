@@ -8,17 +8,19 @@ import {
   Observer,
 } from "@calpoly/mustang";
 import { characterElement } from "./characterElement.js";
+import { HeaderElement } from "./header.js";
 import reset from "./styles/reset.css.js";
 
 export class userElement extends HTMLElement {
   static uses = define({
     "mu-form": Form.Element,
-    "input-array": InputArray.Element,
+    "genshin-header": HeaderElement,
   });
 
   static template = html`<template>
+    <genshin-header></genshin-header>
     <section class="view">
-      <h1>Favorite Characters</h1>
+      <h1>Favorite Characters:</h1>
       <section>
         <slot name="favoriteCharacters"></slot>
         <slot name="name"></slot>
@@ -57,13 +59,13 @@ export class userElement extends HTMLElement {
     }
 
     mu-form.edit select {
-      margin-bottom: 10px; /* Space between dropdown and the button */
+      margin-bottom: 10px; 
     }
 
     mu-form.edit button {
-      margin-top: 10px; /* Space between dropdown and button */
+      margin-top: 10px; 
       padding: 10px 20px; /* Add padding inside the button */
-      font-size: 16px; /* Adjust font size */
+      font-size: 16px; 
     }
 
     label {
@@ -77,10 +79,10 @@ export class userElement extends HTMLElement {
     }
     h1 {
       font-family: var(--font-family-display);
-      background-color: var(--color-background-page);
-      color: var(--color-text);
-      font-size: 56px;
+      color: var(--color-background-page);
+      font-size: 40px;
       margin-bottom: 50px;
+      margin-top: 30px;
       text-align: center;
     }
 

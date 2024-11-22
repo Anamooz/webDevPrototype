@@ -1,8 +1,19 @@
-import { LitElement, css, html } from "lit";
-import { define } from "@calpoly/mustang";
+import { Auth, Observer, Events } from "@calpoly/mustang";
+import { css, html, LitElement } from "lit";
+import { state } from "lit/decorators.js";
+import { User } from "server/src/models/user.ts";
+
+function signOut(ev: MouseEvent) {
+  Events.relay(ev, "auth:message", ["auth/signout"]);
+}
+  
 
 export class GenshinHeaderElement extends LitElement {
-  static uses = define({});
+  @state()
+  username: string = "traveler";
+
+  @state()
+  user?: User;
 
   render() {
     return html`
@@ -11,15 +22,15 @@ export class GenshinHeaderElement extends LitElement {
         <p>Best weapons, artifacts, and skills and materials you'll need</p>
         <nav>
           <a id="userLink" slot="actuator">
-            Hello, <span id="userid" class="username"></span>
+            Hello, <span id="userid" class="username">${this.username}</span>
           </a>
           <menu>
-            <li class="when-signed-in">
-              <a id="signout">Sign Out</a>
+          <li class="when-signed-in">
+              <a id="signout" @click=${signOut}>Sign Out</a>
             </li>
-            <li class="when-signed-out">
-              <a href="/login">Sign In</a>
-            </li>
+          <li class="when-signed-out">
+            <a href="/login">Sign In</a>
+          </li>
           </menu>
         </nav>
       </header>
@@ -78,11 +89,39 @@ export class GenshinHeaderElement extends LitElement {
     }
   `;
 
+  hydrate(url: string) {
+    fetch(url, {
+      headers: Auth.headers(this._user),
+    })
+      .then((res) => {
+        if (res.status !== 200) throw `Status: ${res.status}`;
+        return res.json();
+      })
+      .then((json) => {
+        this.user = json as User;
+      })
+      .catch((error) => {
+        console.log(`Failed to render data ${url}:`, error);
+      });
+  }
+
+  _authObserver = new Observer<Auth.Model>(this, "test:auth");
+
+  _user = new Auth.User();
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this._authObserver.observe(({ user }) => {
+      //console.log("user in genshinheader....", user);
+      if (user && user.username) {
+        this.username = user.username;
+      }
+    });
+  }
+
   static initializeOnce() {
-    function toggleDarkMode(
-      page: HTMLElement,
-      checked: boolean
-    ) {
+    function toggleDarkMode(page: HTMLElement, checked: boolean) {
       page.classList.toggle("dark-mode", checked);
     }
 
