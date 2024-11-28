@@ -32,6 +32,8 @@ var import_auth = __toESM(require("./routes/auth"));
 var import_auth2 = require("./pages/auth");
 var import_auth3 = require("./pages/auth");
 var import_characters = __toESM(require("./routes/characters"));
+var import_promises = __toESM(require("node:fs/promises"));
+var import_path = __toESM(require("path"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
@@ -67,6 +69,12 @@ app.get("/user/:username", (req, res) => {
   }).catch((error) => {
     res.status(404).send(`User with username ${username} not found`);
   });
+});
+app.use("/app", (req, res) => {
+  const indexHtml = import_path.default.resolve(staticDir, "index.html");
+  import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(
+    (html) => res.send(html)
+  );
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -2,6 +2,7 @@ import { Auth, define, Observer, Form } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { User } from "server/src/models/user.ts";
+import reset from "../styles/reset.css";
 
 export class FavoriteViewElement extends LitElement {
   static uses = define({
@@ -19,14 +20,14 @@ export class FavoriteViewElement extends LitElement {
   handleSubmit(event: Event) {
     event.preventDefault(); // Prevent any default behavior
     console.log("Submit event triggered!");
-    
+
     // Extract selected character's ID
     const formData = new FormData(event.target as HTMLFormElement);
     const characterId = formData.get("newFavoriteCharacter");
-  
+
     if (characterId) {
       console.log("Selected character ID:", characterId);
-  
+
       // Add to user's favorites
       const character = this.favoriteIndex.find((c) => c._id === characterId);
       if (character) {
@@ -34,18 +35,16 @@ export class FavoriteViewElement extends LitElement {
         console.log("New favorite characters list:", this.favoriteIndex);
       }
     }
-  
+
     // Switch back to view mode
     this.switchToViewMode();
   }
-  
-  
 
   switchToEditMode() {
     console.log("Switching to edit mode...");
     this.setAttribute("mode", "edit");
   }
-  
+
   switchToViewMode() {
     console.log("Switching to view mode...");
     this.setAttribute("mode", "view");
@@ -59,6 +58,7 @@ export class FavoriteViewElement extends LitElement {
 
   render() {
     return html`
+    <div>
       <section class="view">
         <h1>Favorite Characters</h1>
         <section>
@@ -69,24 +69,27 @@ export class FavoriteViewElement extends LitElement {
         </section>
         <button id="edit" @click=${this.switchToEditMode}>Edit</button>
       </section>
-      <mu-form 
-  class="edit" 
-  ?hidden=${this.getAttribute("mode") !== "edit"} 
-  @submit=${this.handleSubmit}>
+      <mu-form
+        class="edit"
+        ?hidden=${this.getAttribute("mode") !== "edit"}
+        @mu-form:submit=${this.handleSubmit}
+      >
+        >
         <label>
           <span>Add a favorite character</span>
           <select name="newFavoriteCharacter"></select>
         </label>
       </mu-form>
+    </div>
     `;
   }
-  
 
   renderItem(character: { name: string; _id: string }) {
     return html`<dt>${character.name}</dt>`;
   }
 
   static styles = [
+    reset.styles,
     css`
       :host {
         display: contents;
@@ -116,7 +119,7 @@ export class FavoriteViewElement extends LitElement {
 
       mu-form.edit button {
         margin-top: 10px;
-        padding: 10px 20px;
+        padding: 10px 20px; /* Add padding inside the button */
         font-size: 16px;
       }
 
@@ -132,7 +135,7 @@ export class FavoriteViewElement extends LitElement {
 
       h1 {
         font-family: var(--font-family-display);
-        color: var(--color-text);
+        color: var(--color-background-page);
         font-size: 40px;
         margin-bottom: 50px;
         margin-top: 30px;
@@ -145,10 +148,6 @@ export class FavoriteViewElement extends LitElement {
         font-family: var(--font-family-body);
         font-size: 36px;
         text-align: center;
-      }
-
-      span, dl{
-        color: var(--color-text);
       }
     `,
   ];

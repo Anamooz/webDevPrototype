@@ -1,6 +1,5 @@
 import { css, html, shadow, Events, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
-
 export class HeaderElement extends HTMLElement {
   static template = html`<template>
     <header>

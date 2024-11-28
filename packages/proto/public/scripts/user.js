@@ -4,7 +4,6 @@ import {
   html,
   shadow,
   Form,
-  InputArray,
   Observer,
 } from "@calpoly/mustang";
 import { characterElement } from "./characterElement.js";

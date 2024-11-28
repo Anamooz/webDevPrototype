@@ -2,6 +2,7 @@ import { Auth, Observer, Events } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { User } from "server/src/models/user.ts";
+import reset from "../styles/reset.css";
 
 function signOut(ev: MouseEvent) {
   Events.relay(ev, "auth:message", ["auth/signout"]);
@@ -37,7 +38,9 @@ export class GenshinHeaderElement extends LitElement {
     `;
   }
 
-  static styles = css`
+  static styles = [
+    reset.styles,
+    css`
     :host {
       display: contents;
     }
@@ -46,15 +49,17 @@ export class GenshinHeaderElement extends LitElement {
       justify-content: space-between;
       background-color: var(--color-background-page);
       color: var(--color-text);
-      margin-left: 40px;
+      padding-top: 25px;
     }
 
     header p {
       font-size: 28px;
+      margin-left: 40px;
     }
 
     header h1 {
       font-size: 50px;
+      margin-left: 40px;
     }
 
     nav {
@@ -87,7 +92,8 @@ export class GenshinHeaderElement extends LitElement {
     a:has(#userid:not(:empty)) ~ menu > .when-signed-out {
       display: none;
     }
-  `;
+  `
+  ];
 
   hydrate(url: string) {
     fetch(url, {
