@@ -9,6 +9,18 @@ export default function update(
   user: Auth.User
 ) {
   switch (message[0]) {
+    case "profile/save":
+      saveProfile(message[1], user)
+        .then((profile) => apply((model) => ({ ...model, profile })))
+        .then(() => {
+          const { onSuccess } = message[1];
+          if (onSuccess) onSuccess();
+        })
+        .catch((error: Error) => {
+          const { onFailure } = message[1];
+          if (onFailure) onFailure(error);
+        });
+      break;
     case "profile/select":
       selectProfile(message[1], user).then((profile) =>
         apply((model) => ({ ...model, profile }))
@@ -25,10 +37,19 @@ export default function update(
       break;
 
       case "favorite/add":
-  addFavoriteCharacter(message[1], user).then((updatedUser) =>
-    apply((model) => ({ ...model, profile: updatedUser }))
-  );
-  break;
+        addFavoriteCharacter(message[1], user)
+          .then((updatedUser) => {
+            apply((model) => ({ ...model, profile: updatedUser }));
+      
+            // Call onSuccess if provided
+            if (message[1].onSuccess) message[1].onSuccess();
+          })
+          .catch((error) => {
+            // Call onFailure if provided
+            if (message[1].onFailure) message[1].onFailure(error);
+          });
+        break;
+      
 
     default:
       const unhandled: never = message[0];
@@ -92,4 +113,30 @@ function addFavoriteCharacter(
       );
     })
     .then((json: unknown) => (json ? (json as User) : undefined));
+    
+}
+
+function saveProfile(
+  msg: {
+    username: string;
+    profile: User;
+  },
+  user: Auth.User
+) {
+  return fetch(`/api/users/${msg.username}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user),
+    },
+    body: JSON.stringify(msg.profile),
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      else throw new Error(`Failed to save profile for ${msg.username}`);
+    })
+    .then((json: unknown) => {
+      if (json) return json as User;
+      return undefined;
+    });
 }

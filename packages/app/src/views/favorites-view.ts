@@ -22,6 +22,12 @@ export class FavoriteViewElement extends View<Model, Msg> {
     return this.model.profile;
   }
 
+  @state()
+  favoriteIndex = new Array<User>();
+
+  @state()
+  user?: User;
+
   get src() {
     const { username } = this._user || {};
     return `/api/users/${username}`;
@@ -59,13 +65,7 @@ export class FavoriteViewElement extends View<Model, Msg> {
     console.log("Switching to view mode...");
     this.setAttribute("mode", "view");
   }
-
-  @state()
-  favoriteIndex = new Array<User>();
-
-  @state()
-  user?: User;
-
+/*
   render() {
     return html`
     <div>
@@ -83,6 +83,71 @@ export class FavoriteViewElement extends View<Model, Msg> {
         class="edit"
         ?hidden=${this.getAttribute("mode") !== "edit"}
         @mu-form:submit=${this.handleSubmit}
+      >
+        <label>
+          <span>Add a favorite character</span>
+          <select name="newFavoriteCharacter"></select>
+        </label>
+      </mu-form>
+    </div>
+    `;
+  }
+    */
+
+  _handleSubmit(event: Form.SubmitEvent<{ newFavoriteCharacter: string }>) {
+    event.preventDefault(); // Prevent default form submission behavior
+  
+    const characterId = event.detail.newFavoriteCharacter;
+  
+    if (!characterId) {
+      console.error("No character selected.");
+      return;
+    }
+  
+    console.log("Adding character ID:", characterId);
+  
+    // Dispatch the favorite/add message
+    this.dispatchMessage([
+      "favorite/add",
+      {
+        username: this.username, // Pass the current username
+        characterId, // Pass the selected character ID
+      },
+      {
+        onSuccess: () => {
+          console.log("Character successfully added.");
+          this.switchToViewMode(); // Switch back to view mode on success
+        },
+        onFailure: (error: Error) => {
+          console.error("Failed to add character:", error);
+        },
+      },
+    ]);
+    console.log("username", this.username, "character id", characterId);
+
+    this.switchToViewMode();  
+  }
+  
+
+  render() {
+    return html`
+    <div>
+      <section class="view">
+        <h1>Favorite Characters</h1>
+        <section>
+          <dl>
+            ${this.favoriteIndex.map((character) => this.renderItem(character))}
+          </dl>
+          <slot name="name"></slot>
+        </section>
+                <button id="edit"
+          @click=${() => (this.mode = "edit")}
+        >Edit</button>
+      </section>
+      <mu-form
+        class="edit"
+        ?hidden=${this.getAttribute("mode") !== "edit"}
+        @mu-form:submit=${this._handleSubmit}
       >
         <label>
           <span>Add a favorite character</span>
