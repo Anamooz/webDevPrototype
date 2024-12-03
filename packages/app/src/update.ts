@@ -22,10 +22,18 @@ export default function update(
         });
       break;
     case "profile/select":
-      selectProfile(message[1], user).then((profile) =>
-        apply((model) => ({ ...model, profile }))
-      );
+      console.log("Handling profile/select message:", message);
+      selectProfile(message[1], user)
+        .then((profile) => {
+          console.log("Profile successfully fetched:", profile);
+          apply((model) => ({ ...model, profile }));
+        })
+        .catch((error) => {
+          console.error("Error in profile/select handling:", error);
+        });
+
       break;
+
     case "character/select":
       selectCharacter(message[1], user).then(
         (character: Character | undefined) =>
@@ -36,20 +44,17 @@ export default function update(
       );
       break;
 
-      case "favorite/add":
-        addFavoriteCharacter(message[1], user)
-          .then((updatedUser) => {
-            apply((model) => ({ ...model, profile: updatedUser }));
-      
-            // Call onSuccess if provided
-            if (message[1].onSuccess) message[1].onSuccess();
-          })
-          .catch((error) => {
-            // Call onFailure if provided
-            if (message[1].onFailure) message[1].onFailure(error);
-          });
-        break;
-      
+    case "character/add":
+      console.log("Received character/add message:", message);
+      addFavoriteCharacter(message[1], user)
+        .then((updatedUser) => {
+          console.log("Updated user profile:", updatedUser);
+          apply((model) => ({ ...model, profile: updatedUser }));
+        })
+        .catch((error) => {
+          console.error("Error adding favorite character:", error);
+        });
+      break;
 
     default:
       const unhandled: never = message[0];
@@ -58,19 +63,25 @@ export default function update(
 }
 
 function selectProfile(msg: { username: string }, user: Auth.User) {
+  console.log("Fetching profile for username:", msg.username);
   return fetch(`/api/users/${msg.username}`, {
     headers: Auth.headers(user),
   })
     .then((response: Response) => {
+      console.log("Received response for profile fetch:", response);
       if (response.status === 200) {
         return response.json();
+      } else {
+        console.error("Failed to fetch profile, status:", response.status);
+        return undefined;
       }
-      return undefined;
     })
     .then((json: unknown) => {
+      console.log("Parsed JSON response for profile fetch:", json);
       if (json) {
-        console.log("Profile:", json);
         return json as User;
+      } else {
+        console.error("JSON response is undefined or invalid");
       }
     });
 }
@@ -97,24 +108,28 @@ function addFavoriteCharacter(
   msg: { username: string; characterId: string },
   user: Auth.User
 ) {
+  console.log("username and charID IN ADDFAVCHARACTER:", msg, user);
   return fetch(
     `/api/users/${msg.username}/favoriteCharacters/${msg.characterId}`,
     {
       method: "PUT",
-      headers: Auth.headers(user),
+      headers: { "Content-Type": "application/json",
+      ...Auth.headers(user),
+      }
     }
   )
     .then((response: Response) => {
       if (response.status === 200) {
-        return response.json(); // Return the updated user object
+        console.log("ADDFAVCHAR RESPONSE", response);
+        return response.json(); 
+        
       }
       throw new Error(
         `Failed to add favorite character: ${response.statusText}`
       );
     })
-    .then((json: unknown) => (json ? (json as User) : undefined));
-    
-}
+    .then((json: unknown) => { console.log(json); return (json ? (json as User) : undefined)});
+  }
 
 function saveProfile(
   msg: {

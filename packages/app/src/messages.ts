@@ -12,4 +12,4 @@ export type Msg =
     ]
   | ["profile/select", { username: string }]
   | ["character/select", { name: string }]
-  | ["favorite/add", { username: string; characterId: string }];
+  | ["character/add", { username: string; characterId: string }];

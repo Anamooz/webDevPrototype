@@ -11,11 +11,11 @@ export class FavoriteViewElement extends View<Model, Msg> {
     "mu-form": Form.Element,
   });
 
-  @property()
-  username?: string;
-
   @property({ reflect: true })
   mode = "view";
+
+  @property({ attribute: "username" })
+  username = "";
 
   @state()
   get profile(): User | undefined {
@@ -23,37 +23,15 @@ export class FavoriteViewElement extends View<Model, Msg> {
   }
 
   @state()
-  favoriteIndex = new Array<User>();
-
-  @state()
   user?: User;
+
+  constructor() {
+    super("test:model");
+  }
 
   get src() {
     const { username } = this._user || {};
     return `/api/users/${username}`;
-  }
-
-  handleSubmit(event: Event) {
-    event.preventDefault(); // Prevent any default behavior
-    console.log("Submit event triggered!");
-
-    // Extract selected character's ID
-    const formData = new FormData(event.target as HTMLFormElement);
-    const characterId = formData.get("newFavoriteCharacter");
-
-    if (characterId) {
-      console.log("Selected character ID:", characterId);
-
-      // Add to user's favorites
-      const character = this.favoriteIndex.find((c) => c._id === characterId);
-      if (character) {
-        this.favoriteIndex = [...this.favoriteIndex, character];
-        console.log("New favorite characters list:", this.favoriteIndex);
-      }
-    }
-
-    // Switch back to view mode
-    this.switchToViewMode();
   }
 
   switchToEditMode() {
@@ -65,34 +43,6 @@ export class FavoriteViewElement extends View<Model, Msg> {
     console.log("Switching to view mode...");
     this.setAttribute("mode", "view");
   }
-/*
-  render() {
-    return html`
-    <div>
-      <section class="view">
-        <h1>Favorite Characters</h1>
-        <section>
-          <dl>
-            ${this.favoriteIndex.map((character) => this.renderItem(character))}
-          </dl>
-          <slot name="name"></slot>
-        </section>
-        <button id="edit" @click=${this.switchToEditMode}>Edit</button>
-      </section>
-      <mu-form
-        class="edit"
-        ?hidden=${this.getAttribute("mode") !== "edit"}
-        @mu-form:submit=${this.handleSubmit}
-      >
-        <label>
-          <span>Add a favorite character</span>
-          <select name="newFavoriteCharacter"></select>
-        </label>
-      </mu-form>
-    </div>
-    `;
-  }
-    */
 
   _handleSubmit(event: Form.SubmitEvent<{ newFavoriteCharacter: string }>) {
     event.preventDefault(); // Prevent default form submission behavior
@@ -106,22 +56,9 @@ export class FavoriteViewElement extends View<Model, Msg> {
   
     console.log("Adding character ID:", characterId);
   
-    // Dispatch the favorite/add message
     this.dispatchMessage([
-      "favorite/add",
-      {
-        username: this.username, // Pass the current username
-        characterId, // Pass the selected character ID
-      },
-      {
-        onSuccess: () => {
-          console.log("Character successfully added.");
-          this.switchToViewMode(); // Switch back to view mode on success
-        },
-        onFailure: (error: Error) => {
-          console.error("Failed to add character:", error);
-        },
-      },
+      "character/add",
+      { username: this.username, characterId: characterId },
     ]);
     console.log("username", this.username, "character id", characterId);
 
@@ -130,13 +67,21 @@ export class FavoriteViewElement extends View<Model, Msg> {
   
 
   render() {
+    const {
+      favoriteCharacters = [],
+      username,
+    } = this.profile || {};
+
+    console.log("Rendering view with profile:", this.profile);
     return html`
     <div>
       <section class="view">
         <h1>Favorite Characters</h1>
         <section>
-          <dl>
-            ${this.favoriteIndex.map((character) => this.renderItem(character))}
+        <dl>
+            ${favoriteCharacters.map((character) =>
+              this.renderItem(character)
+            )}
           </dl>
           <slot name="name"></slot>
         </section>
@@ -225,7 +170,7 @@ export class FavoriteViewElement extends View<Model, Msg> {
       }
     `,
   ];
-
+/*
   hydrate(url: string) {
     fetch(url, {
       headers: Auth.headers(this._user),
@@ -239,11 +184,13 @@ export class FavoriteViewElement extends View<Model, Msg> {
         this.user = json;
         this.favoriteIndex = json.favoriteCharacters || []; // Populate favoriteIndex
         console.log("Fetched user data:", json);
+        console.log("fav chars", this.favoriteIndex);
       })
       .catch((error) => {
         console.error(`Failed to fetch data from ${url}:`, error);
       });
   }
+      */
 
   populateCharacterDropdown() {
     fetch("/api/characters", {
@@ -283,30 +230,26 @@ export class FavoriteViewElement extends View<Model, Msg> {
     this._authObserver.observe(({ user }) => {
       if (user) {
         this._user = user;
+        this.username = user.username;
         console.log("User from view:", user);
-        this.hydrate(this.src);
+        console.log("Username from view:", this.username);
+  
+        this.dispatchMessage(["profile/select", { username: this.username }]);
         this.populateCharacterDropdown();
       }
     });
   }
+  
 
-  constructor() {
-    super("test:model");
-  }
-
-  attributeChangedCallback(
-    username: string,
-    old: string | null,
-    value: string | null
-  ) {
-    super.attributeChangedCallback(username, old, value);
-
-    if (username === "username" && old !== value && value)
-      this.dispatchMessage([
-        "profile/select",
-        { username: value }
-      ]);
-  }
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    console.log(`Attribute changed: ${name}, Old: ${oldValue}, New: ${newValue}`);
+    if (name === "userid" && oldValue !== newValue && newValue) {
+      console.log("Dispatching profile/select with username:", newValue);
+      this.dispatchMessage(["profile/select", { username: newValue }]);
+    }
+  }  
+  
 }
 
 
