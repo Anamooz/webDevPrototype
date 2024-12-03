@@ -42,4 +42,16 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve characters." });
   }
 });
+router.get("/:name", (req, res) => {
+  const { name } = req.params;
+  import_character_svc.default.getByName(name).then((character) => {
+    if (!character) {
+      return res.status(404).json({ error: "Character not found." });
+    }
+    res.json(character);
+  }).catch((error) => {
+    console.error("Error fetching character:", error);
+    res.status(500).json({ error: "Failed to retrieve character." });
+  });
+});
 var characters_default = router;

@@ -34,4 +34,8 @@ function get(characterid: String): Promise<Character> {
     });
 }
 
-export default { index };
+function getByName(characterName: string): Promise<Character | null> {
+    return characterModel.findOne({ name: characterName }).exec();
+}
+
+export default { index, getByName };

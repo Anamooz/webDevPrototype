@@ -1,31 +1,25 @@
-import {
-  Auth,
-  History,
-  Switch,
-  define
-} from "@calpoly/mustang";
+import { Auth, Store, History, Switch, define } from "@calpoly/mustang";
+import { Msg } from "./messages.ts";
+import { Model, init } from "./model.ts";
+import update from "./update.ts";
 import { html, LitElement } from "lit";
 import { FavoriteViewElement } from "./views/favorites-view";
 import { GenshinHeaderElement } from "./components/genshin-header";
-import { HomeViewElement } from "./views/home-view.ts"
+import { HomeViewElement } from "./views/home-view.ts";
 
 const routes = [
   {
     path: "/app/:username",
-    view: (params: Switch.Params) => html`
-      <favorites-view></favorites-view>
-    `
+    view: (params: Switch.Params) => html` <favorites-view></favorites-view> `,
   },
   {
     path: "/app",
-    view: () => html`
-      <home-view></home-view>
-    `
+    view: () => html` <home-view></home-view> `,
   },
   {
     path: "/",
-    redirect: "/app"
-  }
+    redirect: "/app",
+  },
 ];
 class AppElement extends LitElement {
   render() {
@@ -41,6 +35,11 @@ class AppElement extends LitElement {
 define({
   "mu-auth": Auth.Provider,
   "mu-history": History.Provider,
+  "mu-store": class AppStore extends Store.Provider<Model, Msg> {
+    constructor() {
+      super(update, init, "test:auth");
+    }
+  },
   "mu-switch": class AppSwitch extends Switch.Element {
     constructor() {
       super(routes, "test:history", "test:auth");

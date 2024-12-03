@@ -50,4 +50,7 @@ function get(characterid) {
     return character;
   });
 }
-var character_svc_default = { index };
+function getByName(characterName) {
+  return characterModel.findOne({ name: characterName }).exec();
+}
+var character_svc_default = { index, getByName };

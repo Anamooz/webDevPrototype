@@ -1,16 +1,26 @@
-import { Auth, define, Observer, Form } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
+import { Auth, define, Observer, Form, View } from "@calpoly/mustang";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { User } from "server/src/models/user.ts";
+import { User } from "server/models";
 import reset from "../styles/reset.css";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class FavoriteViewElement extends LitElement {
+export class FavoriteViewElement extends View<Model, Msg> {
   static uses = define({
     "mu-form": Form.Element,
   });
 
   @property()
+  username?: string;
+
+  @property({ reflect: true })
   mode = "view";
+
+  @state()
+  get profile(): User | undefined {
+    return this.model.profile;
+  }
 
   get src() {
     const { username } = this._user || {};
@@ -74,7 +84,6 @@ export class FavoriteViewElement extends LitElement {
         ?hidden=${this.getAttribute("mode") !== "edit"}
         @mu-form:submit=${this.handleSubmit}
       >
-        >
         <label>
           <span>Add a favorite character</span>
           <select name="newFavoriteCharacter"></select>
@@ -215,4 +224,25 @@ export class FavoriteViewElement extends LitElement {
       }
     });
   }
+
+  constructor() {
+    super("test:model");
+  }
+
+  attributeChangedCallback(
+    username: string,
+    old: string | null,
+    value: string | null
+  ) {
+    super.attributeChangedCallback(username, old, value);
+
+    if (username === "username" && old !== value && value)
+      this.dispatchMessage([
+        "profile/select",
+        { username: value }
+      ]);
+  }
 }
+
+
+
