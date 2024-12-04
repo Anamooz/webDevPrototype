@@ -19,6 +19,8 @@ h3 {
 
 body {
     font-family: var(--font-family-body);
+    background-color: var(--color-character-page-background);
+    color: var(--color-text-body);
 }
 
 li {
@@ -46,8 +48,9 @@ li {
 }
 
 img {
-    border: var(--img-ridge) ridge var(--color-pyro);
+    border: var(--img-ridge) ridge var(--color-cryo);
     border-radius: var(--img-border-radius);
+    background-color: var(--img-background-color);
 }
 
 .center {
@@ -80,5 +83,7 @@ p {
     padding-left: 0;
 }
 
-
-
+label {
+    display: block;
+    text-align: right;
+}

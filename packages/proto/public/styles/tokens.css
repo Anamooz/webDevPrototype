@@ -6,22 +6,28 @@
     --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
     --font-size-tiny: 17px;
 
+    --section-margin-bottom: 25px;
+
     --color-geo: #dcac37;
+    --color-geo-accent: ; 
     --color-pyro: #a90e09;
+    --color-pyro-accent: ;
     --color-cryo: #4682B4;
+    --color-cryo-accent: #1f3a50;
     --color-hydro: #0098ff;
+    --color-hydro-accent: ;
     --color-dendro: #608a00;
+    --color-dendro-accent: #233100;
     --color-anemo: #359697;
+    --color-anemo-accent: ;
     --color-electro: #945dc4;
-
-    --color-navy: #3853a3;
-
+    --color-electro-accent: #482d60;
     --color-character-page-background: rgb(245, 239, 239); 
 
     --img-height: 256px;
     --img-width: 256px;
-    --img-border-radius: 12px;
-    --img-ridge: 2px;
+    --img-border-radius: 30px;
+    --img-ridge: 3px;
     --img-background-color: white;
 
     --gallery-li-row-gap: 5px;
@@ -47,7 +53,7 @@
 }
 
 body.dark-mode {
-    --color-character-page-background: rgb(0, 0, 0);
+    --color-character-page-background: rgba(0, 0, 0, 0.77);
     --color-text-body: rgba(255, 255, 255, 0.885);
     --img-background-color: rgb(183, 173, 173);
 }
