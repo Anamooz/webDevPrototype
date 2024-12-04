@@ -1,13 +1,55 @@
-
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/pyro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+        {
+          "imports": {
+            "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+          }
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Gaming</h1>
-    <p>Main DPS</p>
+    <p class="centerText">Main DPS</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/starconch.webp"/> x168 Starconch</li>
         <li> <img src="/images/materials/emperorsResolution.webp"/> x46 Emperor's Resolution</li>
         <li> <img src="/images/materials/agnidusAgateSliver.webp"/> x1 Agnidus Agate Sliver</li>
@@ -23,9 +65,9 @@
 <section>
     <h3>Best Weapon</h3>
     <p>Serpent Spine</p>
-    <img src="/images/weapons/serpentSpine.png" />
+    <img src="/images/weapons/serpentSpine.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/fragileBone.webp"/> x15 Fragile Bone Shard</li>
         <li> <img src="/images/materials/sturdyBone.webp"/> x18 Sturdy Bone Shard</li>
         <li> <img src="/images/materials/fossilizedBone.webp"/> x27 Fossilized Bone Shard</li>
@@ -42,7 +84,7 @@
 <section>
     <h3>Best Artifact Set and Stats</h3>
     <p>Crimson Witch of Flames</p>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/crimsonWitch/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/crimsonWitch/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/crimsonWitch/sands.webp"/> ATK % / Elemental Mastery</li>
@@ -57,7 +99,7 @@
     <h3>Skill Level Order</h3>
     <p> Elemental Skill > Elemental Burst > Normal Attack  </p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfProsperity.webp"/> x9 Teachings of Prosperity</li>
         <li> <img src="/images/talents/guideToProsperity.webp"/> x63 Guide to Prosperity</li>
         <li> <img src="/images/talents/philosophiesOfProsperity.webp"/> x114 Philosophies of Prosperity</li>

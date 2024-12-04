@@ -48,7 +48,7 @@ li {
 }
 
 img {
-    border: var(--img-ridge) ridge var(--color-cryo);
+    border: var(--img-ridge) ridge var(--color-pyro);
     border-radius: var(--img-border-radius);
     background-color: var(--img-background-color);
 }
