@@ -20,27 +20,12 @@
     <link rel="stylesheet" href="/styles/homepage.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
 
-    <script type="module" src="/src/main">
-      import { define, Auth, Events, History, Switch } from "@calpoly/mustang";
-      import { GenshinHeaderElement } from "/src/components/genshin-header.ts";
-
-      define({
-        "mu-auth": Auth.Provider,
-        "mu-history": History.Provider,
-        "mu-switch": class AppSwitch extends Switch.Element {
-          constructor() {
-            super(routes, "test:history", "test:auth");
-          }
-        },
-        "genshin-header": GenshinHeaderElement,
-      });
-      window.relayEvent = Events.relay;
-    </script>
+    <script type="module" src="/src/main"></script>
   </head>
 
   <body>
     <mu-history provides="test:history">
-      <mu-auth provides="test:auth" redirect="./login">
+      <mu-auth provides="test:auth" redirect="/login">
         <mu-store provides="test:model">
           <genshin-header></genshin-header>
           <mu-switch></mu-switch>

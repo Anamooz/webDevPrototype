@@ -9,16 +9,17 @@ header {
 
 h3 {
     color: var(--color-text);
-    background-color: var(--color-navy);
+    background-color: var(--color-geo-accent);
     font-size: var(--character-subheader-font-size);
     padding: var(--character-subheader-padding);
     padding-left: var(--character-subheader-padding-left);
-    margin-top: var(--character-subheader-margin-top);
     margin-bottom: var(--character-subheader-margin-bottom);
 }
 
 body {
     font-family: var(--font-family-body);
+    background-color: var(--color-character-page-background);
+    color: var(--color-text-body);
 }
 
 li {
@@ -48,6 +49,8 @@ li {
 img {
     border: var(--img-ridge) ridge var(--color-geo);
     border-radius: var(--img-border-radius);
+    background-color: var(--img-background-color);
+    margin-bottom: var(--section-margin-bottom);
 }
 
 .center {
@@ -80,3 +83,11 @@ p {
     padding-left: 0;
 }
 
+label {
+    display: block;
+    text-align: right;
+}
+
+section {
+    margin-bottom: var(--section-margin-bottom);
+}

@@ -7,7 +7,7 @@ import { FavoriteViewElement } from "./views/favorites-view";
 import { GenshinHeaderElement } from "./components/genshin-header";
 import { HomeViewElement } from "./views/home-view.ts";
 
-const routes = [
+const routes: Switch.Route[] = [
   {
     path: "/app/:username",
     view: () => html` <favorites-view></favorites-view> `,

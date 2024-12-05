@@ -6,7 +6,7 @@ import reset from "../styles/reset.css";
 
 function signOut(ev: MouseEvent) {
   Events.relay(ev, "auth:message", ["auth/signout"]);
-  window.location.href = "/login"; // Explicitly navigate to the absolute /login path
+  window.location.href = "/login"; 
 }
 
 export class GenshinHeaderElement extends LitElement {
