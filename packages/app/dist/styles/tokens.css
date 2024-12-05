@@ -1,0 +1,59 @@
+:root {
+    --color-background-page: #495670;
+    --color-text: #FFFFFF;
+    --color-text-body: black; 
+    --font-family-body: Karma, "Lucida Bright", "Times New Roman", serif;
+    --font-family-display: Nunito, "Lucida Grnade", "Trebuchet MS", sans-serif; 
+    --font-size-tiny: 17px;
+
+    --section-margin-bottom: 25px;
+
+    --color-geo: #dcac37;
+    --color-geo-accent: #70581a; 
+    --color-pyro: #a90e09;
+    --color-pyro-accent: #470805;
+    --color-cryo: #15b2da;
+    --color-cryo-accent: #1d4670;
+    --color-hydro: #4682B4;
+    --color-hydro-accent: #002f4e;
+    --color-dendro: #608a00;
+    --color-dendro-accent: #233100;
+    --color-anemo: #359697;
+    --color-anemo-accent: #056152;
+    --color-electro: #945dc4;
+    --color-electro-accent: #482d60;
+    --color-character-page-background: rgb(245, 239, 239); 
+
+    --img-height: 256px;
+    --img-width: 256px;
+    --img-border-radius: 30px;
+    --img-ridge: 3px;
+    --img-background-color: white;
+
+    --gallery-li-row-gap: 5px;
+    --gallery-row-gap: 25px;
+
+    --artifact-font-size: 25px;
+    --artifact-padding: 25px;
+
+    --artifact-substat-title-font-size: 22px;
+    --artifact-substat-padding-left: 30px;
+    --artifact-substat-margin-bottom: 30px;
+    --artifact-substat-margin-top: 30px;
+    --artifact-p-padding-left: 35px;
+
+    --character-header-font-size: 20px;
+    --character-header-padding: 10px;
+
+    --character-subheader-font-size: 20px;
+    --character-subheader-padding: 13px;
+    --character-subheader-padding-left: 30px;
+    --character-subheader-margin-top: 10px;
+    --character-subheader-margin-bottom: 30px;
+}
+
+body.dark-mode {
+    --color-character-page-background: rgba(0, 0, 0, 0.77);
+    --color-text-body: rgba(255, 255, 255, 0.885);
+    --img-background-color: rgb(183, 173, 173);
+}

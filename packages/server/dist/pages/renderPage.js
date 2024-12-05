@@ -35,7 +35,7 @@ const defaults = {
     import { HeaderElement } from "/scripts/header.js";
 
     define({
-      "blz-header": HeaderElement
+      "genshin-header": HeaderElement
     });
 
     HeaderElement.initializeOnce();
