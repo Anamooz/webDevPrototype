@@ -24,9 +24,6 @@
       grid-template-columns: subgrid;
       gap: var(--size-spacing-medium);
     }
-    ::slotted(fieldset) {
-      display: contents;
-    }
     button[type="submit"] {
       grid-column: input;
       justify-self: start;
@@ -150,8 +147,6 @@ Expecting `+bt.join(", ")+", got '"+(this.terminals_[b]||b)+"'":Dt="Parse error 
     }
     ::slotted(label) {
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: subgrid;
     }
   `;function tr(r,t){t.replaceChildren(),r.forEach((e,s)=>t.append(xs(e)))}function xs(r,t){const e=r===void 0?M`<input />`:M`<input value="${r}" />`;return M`
     <label>
