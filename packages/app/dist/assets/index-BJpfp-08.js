@@ -359,7 +359,6 @@ Expecting `+bt.join(", ")+", got '"+(this.terminals_[b]||b)+"'":Dt="Parse error 
       }
     `];let st=fe;Ns([Mt()],st.prototype,"username");Ns([Mt()],st.prototype,"user");const Lr=_t`
 body {
-    background-color: var(--color-background-page);
     font-family: var(--font-family-body);
 }
 

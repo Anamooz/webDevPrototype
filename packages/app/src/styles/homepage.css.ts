@@ -1,7 +1,6 @@
 import { css } from "lit";
 const styles = css`
 body {
-    background-color: var(--color-background-page);
     font-family: var(--font-family-body);
 }
 
