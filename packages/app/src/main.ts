@@ -10,7 +10,7 @@ import { HomeViewElement } from "./views/home-view.ts";
 const routes = [
   {
     path: "/app/:username",
-    view: (params: Switch.Params) => html` <favorites-view></favorites-view> `,
+    view: () => html` <favorites-view></favorites-view> `,
   },
   {
     path: "/app",

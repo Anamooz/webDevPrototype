@@ -69,7 +69,6 @@ export class FavoriteViewElement extends View<Model, Msg> {
   render() {
     const {
       favoriteCharacters = [],
-      username,
     } = this.profile || {};
 
     console.log("Rendering view with profile:", this.profile);
@@ -103,7 +102,7 @@ export class FavoriteViewElement extends View<Model, Msg> {
     `;
   }
 
-  renderItem(character: { name: string; _id: string }) {
+  renderItem(character: { name: string;}) {
     return html`<dt>${character.name}</dt>`;
   }
 
@@ -170,27 +169,6 @@ export class FavoriteViewElement extends View<Model, Msg> {
       }
     `,
   ];
-/*
-  hydrate(url: string) {
-    fetch(url, {
-      headers: Auth.headers(this._user),
-    })
-      .then((res) => {
-        if (res.status !== 200) throw new Error(`Status: ${res.status}`);
-        return res.json();
-      })
-      .then((json: User) => {
-        // Set the user and favoriteIndex state
-        this.user = json;
-        this.favoriteIndex = json.favoriteCharacters || []; // Populate favoriteIndex
-        console.log("Fetched user data:", json);
-        console.log("fav chars", this.favoriteIndex);
-      })
-      .catch((error) => {
-        console.error(`Failed to fetch data from ${url}:`, error);
-      });
-  }
-      */
 
   populateCharacterDropdown() {
     fetch("/api/characters", {
