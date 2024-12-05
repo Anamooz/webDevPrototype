@@ -1,13 +1,49 @@
 
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/pyro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Arlecchino</h1>
-    <p>Main DPS</p>
+    <p class="centerText">Main DPS</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/rainbowRose.webp"/> x168 Rainbow Rose</li>
         <li> <img src="/images/materials/fragmentGoldenMelody.webp"/> x46 Fragment of a Golden Melody</li>
         <li> <img src="/images/materials/agnidusAgateSliver.webp"/> x1 Agnidus Agate Sliver</li>
@@ -22,10 +58,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Crimson Moon's Semblance</p>
-    <img src="/images/weapons/crimsonMoon.png" />
+    <img src="/images/weapons/crimsonMoon.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/meshingGear.webp"/> x15 Meshing Gear</li>
         <li> <img src="/images/materials/mechanicalSpurGear.webp"/> x23 Mechanical Spur Gear</li>
         <li> <img src="/images/materials/artificedDynamicGear.webp"/> x27 Artificed Dynamic Gear</li>
@@ -41,8 +76,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Fragment of Harmonic Whimsy</p>
-    <ul>
+    <p class="artifact">Fragment of Harmonic Whimsy</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/harmonic/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/harmonic/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/harmonic/sands.webp"/> ATK % </li>
@@ -57,7 +92,7 @@
     <h3>Skill Level Order</h3>
     <p> Normal Attack > Elemental Skill > Elemental Burst</p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfOrder.webp"/> x9 Teachings of Order</li>
         <li> <img src="/images/talents/guideToOrder.webp"/> x63 Guide to Order</li>
         <li> <img src="/images/talents/philosophiesOfOrder.webp"/> x114 Philosophies of Order</li>
@@ -68,3 +103,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
+</body>
+</html>

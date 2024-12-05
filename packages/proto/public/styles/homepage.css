@@ -29,6 +29,8 @@ a {
     color: var(--color-text);
     text-align: center;
     font-size: 100px;
+    -webkit-text-stroke-color: rgb(88, 62, 13);
+    -webkit-text-stroke-width: 1px;
 }
 
 .page {

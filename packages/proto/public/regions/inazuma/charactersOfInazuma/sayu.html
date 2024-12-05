@@ -1,13 +1,50 @@
 
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/anemo.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Sayu</h1>
-    <p>Support</p>
+    <p class="centerText">Support</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
+
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/crystalMarrow.webp"/> x168 Crystal Marrow</li>
         <li> <img src="/images/materials/marionetteCore.webp"/> x46 Marionette Core</li>
         <li> <img src="/images/materials/vayudaTurquoiseSliver.webp"/> x1 Vayuda Turquoise Sliver</li>
@@ -22,10 +59,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Makhaira Aquamarine</p>
-    <img src="/images/weapons/makhairaAquamarine.png" />
+    <img src="/images/weapons/makhairaAquamarine.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/treasureHoarderInsignia.webp"/> x10 Treasure Hoarder Insignia</li>
         <li> <img src="/images/materials/silverRavenInsignia.webp"/> x15 Silver Raven Insignia</li>
         <li> <img src="/images/materials/goldenRavenInsignia.webp"/> x18 Golden Raven Insignia</li>
@@ -41,8 +77,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Viridescent Venerer</p>
-    <ul>
+    <p class="artifact">Viridescent Venerer</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/viridescent/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/viridescent/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/viridescent/sands.webp"/> Elemental Mastery / Energy Recharge</li>
@@ -57,7 +93,7 @@
     <h3>Skill Level Order</h3>
     <p>Elemental Burst > Elemental Skill > Normal Attack</p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfLight.webp"/> x9 Teachings of Light</li>
         <li> <img src="/images/talents/guideToLight.webp"/> x63 Guide to Light</li>
         <li> <img src="/images/talents/philosophiesOfLight.webp"/> x114 Philosophies of Light</li>
@@ -68,3 +104,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
+</body>
+</html>

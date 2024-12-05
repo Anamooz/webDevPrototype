@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
-    <link rel="stylesheet" href="/styles/pyro.css" />
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
-        
+    <link rel="stylesheet" href="/styles/pyro.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -16,14 +16,35 @@
 </head>
 
 <body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Diluc</h1>
-    <p>Main DPS</p>
+    <p class="centerText">Main DPS</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
+
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/smallLampGrass.webp"/> x168 Small Lamp Grass</li>
         <li> <img src="/images/materials/everflameSeed.webp"/> x46 Everflame Seed</li>
         <li> <img src="/images/materials/agnidusAgateSliver.webp"/> x1 Agnidus Agate Sliver</li>
@@ -38,10 +59,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Beacon of the Reed Sea</p>
-    <img src="/images/weapons/beaconOfTheReedSea.png" />
+    <img src="/images/weapons/beaconOfTheReedSea.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/fadedRedSatin.webp"/> x15 Faded Red Satin</li>
         <li> <img src="/images/materials/trimmedRedSilk.webp"/> x23 Trimmed Red Silk</li>
         <li> <img src="/images/materials/richRedBrocade.webp"/> x27 Rich Red Brocade</li>
@@ -57,8 +77,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Crimson Witch of Flames</p>
-    <ul>
+    <p class="artifact">Crimson Witch of Flames</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/crimsonWitch/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/crimsonWitch/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/crimsonWitch/sands.webp"/> ATK % / Elemental Mastery</li>
@@ -73,7 +93,7 @@
     <h3>Skill Level Order</h3>
     <p> Elemental Skill > Normal Attack > Elemental Burst </p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfResistance.webp"/> x9 Teachings of Resistance</li>
         <li> <img src="/images/talents/guideToResistance.webp"/> x63 Guide to Resistance</li>
         <li> <img src="/images/talents/philosophiesOfResistance.webp"/> x114 Philosophies of Resistance</li>

@@ -1,13 +1,48 @@
 
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/hydro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Nilou</h1>
-    <p>Sub DPS</p>
+    <p class="centerText">Sub DPS</p>
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/padisarah.webp"/> x168 Padisarah</li>
         <li> <img src="/images/materials/perpetualCaliber.webp"/> x46 Perpetual Caliber</li>
         <li> <img src="/images/materials/varunadaLazuriteSliver.webp"/> x1 Varunada Lazurite Sliver</li>
@@ -22,10 +57,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Key of Khaj-Nisut</p>
-    <img src="/images/weapons/keyOfKhaj.png" />
+    <img src="/images/weapons/keyOfKhaj.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/fadedRedSatin.webp"/> x15 Faded Red Satin</li>
         <li> <img src="/images/materials/trimmedRedSilk.webp"/> x23 Trimmed Red Silk</li>
         <li> <img src="/images/materials/richRedBrocade.webp"/> x27 Rich Red Brocade</li>
@@ -41,8 +75,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>x2 Tenacity of the Millelith / x2 Vourukasha's Glow</p>
-    <ul>
+    <p class="artifact">x2 Tenacity of the Millelith / x2 Vourukasha's Glow</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/tenacity/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/tenacity/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/tenacity/sands.webp"/> HP % / Energy Recharge</li>
@@ -57,7 +91,7 @@
     <h3>Skill Level Order</h3>
     <p>Elemental Burst > Elemental Skill > Normal Attack</p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfPraxis.webp"/> x9 Teachings of Praxis</li>
         <li> <img src="/images/talents/guideToPraxis.webp"/> x63 Guide to Praxis</li>
         <li> <img src="/images/talents/philosophiesOfPraxis.webp"/> x114 Philosophies of Praxis</li>
@@ -68,3 +102,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
+</body>
+</html>

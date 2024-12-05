@@ -1,13 +1,50 @@
 
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/dendro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Collei</h1>
-    <p>Sub DPS</p>
+    <p class="centerText">Sub DPS</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
+
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/rukkhashavaMushrooms.webp"/> x168 Rukkhashava Mushrooms</li>
         <li> <img src="/images/materials/majesticHoodedBeak.webp"/> x46 Majestic Hooked Beak</li>
         <li> <img src="/images/materials/nagadusEmeraldSliver.webp"/> x1 Nagadus Emerald Sliver</li>
@@ -22,10 +59,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Polar Star</p>
-    <img src="/images/weapons/polarStar.png" />
+    <img src="/images/weapons/polarStar.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/spectralHusk.webp"/> x15 Spectral Husk</li>
         <li> <img src="/images/materials/spectralHeart.webp"/> x23 Spectral Heart</li>
         <li> <img src="/images/materials/spectralNucleus.webp"/> x27 Spectral Nucleus</li>
@@ -41,8 +77,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Deepwood Memories</p>
-    <ul>
+    <p class="artifact">Deepwood Memories</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/deepwood/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/deepwood/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/deepwood/sands.webp"/> ATK % / Energy Recharge / Elemental Mastery</li>
@@ -57,7 +93,7 @@
     <h3>Skill Level Order</h3>
     <p>Elemental Burst > Elemental Skill > Normal Attack  </p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfPraxis.webp"/> x9 Teachings of Praxis</li>
         <li> <img src="/images/talents/guideToPraxis.webp"/> x63 Guide to Praxis</li>
         <li> <img src="/images/talents/philosophiesOfPraxis.webp"/> x114 Philosophies of Praxis</li>
@@ -68,3 +104,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
+</body>
+</html>

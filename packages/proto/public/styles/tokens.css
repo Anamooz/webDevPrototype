@@ -9,17 +9,17 @@
     --section-margin-bottom: 25px;
 
     --color-geo: #dcac37;
-    --color-geo-accent: ; 
+    --color-geo-accent: #70581a; 
     --color-pyro: #a90e09;
-    --color-pyro-accent: ;
-    --color-cryo: #4682B4;
-    --color-cryo-accent: #1f3a50;
-    --color-hydro: #0098ff;
-    --color-hydro-accent: ;
+    --color-pyro-accent: #470805;
+    --color-cryo: #15b2da;
+    --color-cryo-accent: #1d4670;
+    --color-hydro: #4682B4;
+    --color-hydro-accent: #002f4e;
     --color-dendro: #608a00;
     --color-dendro-accent: #233100;
     --color-anemo: #359697;
-    --color-anemo-accent: ;
+    --color-anemo-accent: #056152;
     --color-electro: #945dc4;
     --color-electro-accent: #482d60;
     --color-character-page-background: rgb(245, 239, 239); 

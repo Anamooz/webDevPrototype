@@ -1,12 +1,49 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/electro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 <header>
     <h1>Kujou Sara</h1>
-    <p>Support</p>
+    <p class="center">Support</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
+
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/dendrobium.webp"/> x168 Dendrobium</li>
         <li> <img src="/images/materials/stormBeads.webp"/> x46 Storm Beads</li>
         <li> <img src="/images/materials/vajradaAmethystSliver.webp"/> x1 Vajrada Amethyst Sliver</li>
@@ -21,10 +58,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Elegy For The End</p>
-    <img src="/images/weapons/elegyForTheEnd.png" />
+    <img src="/images/weapons/elegyForTheEnd.png" class="center"/>
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/recruitsInsignia.webp"/> x15 Recruit's Insignia</li>
         <li> <img src="/images/materials/sergeantsInsignia.webp"/> x23 Sergeant's Insignia</li>
         <li> <img src="/images/materials/lieutenantsInsignia.webp"/> x27 Lieutenant's Insignia</li>
@@ -40,8 +76,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Noblesse Oblige</p>
-    <ul>
+    <p class="artifact">Noblesse Oblige</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/noblesseOblige/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/noblesseOblige/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/noblesseOblige/sands.webp"/> Energy Recharge / ATK %</li>
@@ -56,7 +92,7 @@
     <h3>Skill Level Order</h3>
     <p> Elemental Skill > Elemental Burst > Normal Attack</p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfElegance.webp"/> x9 Teachings of Elegance</li>
         <li> <img src="/images/talents/guideToElegance.webp"/> x63 Guide to Elegance</li>
         <li> <img src="/images/talents/philosophiesOfElegance.webp"/> x114 Philosophies of Elegance</li>
@@ -67,3 +103,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
+</body>
+</html>

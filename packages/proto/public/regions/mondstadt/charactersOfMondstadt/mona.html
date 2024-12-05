@@ -2,18 +2,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/hydro.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
+<body>
+    <script>
+        const page = document.body;
+    
+        page.addEventListener("dark-mode:toggle", (event) => {
+            const checked = event.detail.checked;
+            page.classList.toggle("dark-mode", checked);
+        });
+    
+        function toggleDarkMode(target, checked) {
+            const customEvent = new CustomEvent(
+            "dark-mode:toggle", {
+            bubbles: true,
+            detail: { checked },
+            });
+    
+            target.dispatchEvent(customEvent);
+        }
+    </script>
+<main class="page">
 
 <body>
 <header>
     <h1>Mona</h1>
-    <p>Sub DPS / Support</p>
+    <p class="centerText">Sub DPS / Support</p>
+    <label onchange="toggleDarkMode(event.target, event.target.checked)"> <input type="checkbox" /> Dark Mode </label>
+
 </header>
 
 <section>
     <h3>Ascension Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/philanemoMushroom.webp"/> x168 Philanemo Mushroom</li>
         <li> <img src="/images/materials/cleansingHeart.webp"/> x46 Cleansing Heart</li>
         <li> <img src="/images/materials/varunadaLazuriteSliver.webp"/> x1 Varunada Lazurite Sliver</li>
@@ -28,10 +61,9 @@
 
 <section>
     <h3>Best Weapon</h3>
-    <p>Skyward Atlas</p>
-    <img src="/images/weapons/skywardAtlas.png" />
+    <img src="/images/weapons/skywardAtlas.png" class="center" />
     <h3>Weapon Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/materials/firmArrowhead.webp"/> x15 Firm Arrowhead</li>
         <li> <img src="/images/materials/sharpArrowhead.webp"/> x23 Sharp Arrowhead</li>
         <li> <img src="/images/materials/weatheredArrowhead.webp"/> x27 Weathered Arrowhead</li>
@@ -47,8 +79,8 @@
 
 <section>
     <h3>Best Artifact Set and Stats</h3>
-    <p>Emblem of Severed Fate</p>
-    <ul>
+    <p class="artifact">Emblem of Severed Fate</p>
+    <ul class="gallery">
         <li> <img src="/images/artifacts/emblem/flower.webp"/> HP</li>
         <li> <img src="/images/artifacts/emblem/feather.webp"/> ATK</li>
         <li> <img src="/images/artifacts/emblem/sands.webp"/> ATK % </li>
@@ -63,7 +95,7 @@
     <h3>Skill Level Order</h3>
     <p>Elemental Burst > Elemental Skill > Normal Attack</p>
     <h3>Character Talent Materials</h3>
-    <ul>
+    <ul class="gallery">
         <li> <img src="/images/talents/teachingsOfResistance.webp"/> x9 Teachings of Resistance</li>
         <li> <img src="/images/talents/guideToResistance.webp"/> x63 Guide to Resistance</li>
         <li> <img src="/images/talents/philosophiesOfResistance.webp"/> x114 Philosophies of Resistance</li>
@@ -74,5 +106,6 @@
         <li> <img src="/images/materials/crown.webp"/> x3 Crown of Insight</li>
     </ul>
 </section>
+</main>
 </body>
 </html>

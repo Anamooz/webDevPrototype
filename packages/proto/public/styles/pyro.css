@@ -9,11 +9,10 @@ header {
 
 h3 {
     color: var(--color-text);
-    background-color: var(--color-navy);
+    background-color: var(--color-pyro-accent);
     font-size: var(--character-subheader-font-size);
     padding: var(--character-subheader-padding);
     padding-left: var(--character-subheader-padding-left);
-    margin-top: var(--character-subheader-margin-top);
     margin-bottom: var(--character-subheader-margin-bottom);
 }
 
@@ -51,6 +50,7 @@ img {
     border: var(--img-ridge) ridge var(--color-pyro);
     border-radius: var(--img-border-radius);
     background-color: var(--img-background-color);
+    margin-bottom: var(--section-margin-bottom);
 }
 
 .center {
@@ -86,4 +86,8 @@ p {
 label {
     display: block;
     text-align: right;
+}
+
+section {
+    margin-bottom: var(--section-margin-bottom);
 }
